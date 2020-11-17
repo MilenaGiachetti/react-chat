@@ -57,7 +57,7 @@ const Chat = (props) => {
 
 	const submitMessage = messageString => {
 		// on submitting the ChatInput form, send the message, add it to the list and reset the input
-		const message = { name: props.username, message: messageString };
+		const message = { sender: props.username, message: messageString };
 		socket.current.emit('new_chat_message', JSON.stringify(message));
 		// addMessage(message);
 		console.log('submitmessage');
@@ -74,7 +74,7 @@ const Chat = (props) => {
 					<Message
 						key={index}
 						message={message.message}
-						name={message.name}
+						sender={message.sender}
 						username={props.username}
 					/>
 				)}

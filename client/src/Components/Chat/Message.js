@@ -2,10 +2,10 @@ import React from 'react';
 import classes from './Message.module.scss';
 
 
-const Message = ({ name, message, username }) => {
+const Message = ({ sender, message, username }) => {
     return (
-        <p className={username === name ? classes.mine : classes.others}>
-            <strong>{name}:</strong> {message}
+        <p className={username === sender ? classes.mine : classes.others}>
+            <strong>{sender}:</strong> {message}
         </p>
     )
 }
