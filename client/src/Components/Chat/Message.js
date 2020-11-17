@@ -4,9 +4,12 @@ import classes from './Message.module.scss';
 
 const Message = ({ sender, message, username }) => {
     return (
-        <p className={username === sender ? classes.mine : classes.others}>
-            <strong>{sender}:</strong> {message}
-        </p>
+        
+        <div className={username === sender ? classes.mine : classes.others}>
+            <p>
+                <strong>{sender}:</strong> {message}
+            </p>
+        </div>
     )
 }
 
