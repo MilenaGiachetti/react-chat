@@ -5,8 +5,8 @@ import { io } from 'socket.io-client';
 
 const URL = 'http://127.0.0.1:4001';
 
-const Chat = () => {
-	const [name, setName] = useState('name');
+const Chat = (props) => {
+	// const [name, setName] = useState('name');
 	const [messages, setMessages] = useState([]);
 		
 	// leer mas https://www.grapecity.com/blogs/moving-from-react-components-to-react-hooks
@@ -57,7 +57,7 @@ const Chat = () => {
 
 	const submitMessage = messageString => {
 		// on submitting the ChatInput form, send the message, add it to the list and reset the input
-		const message = { name: name, message: messageString };
+		const message = { name: props.username, message: messageString };
 		socket.current.emit('new_chat_message', JSON.stringify(message));
 		// addMessage(message);
 		console.log('submitmessage');
@@ -65,16 +65,6 @@ const Chat = () => {
 
 	return (
 		<div>
-			<label htmlFor="name">
-				Name:&nbsp;
-				<input
-					type="text"
-					id={'name'}
-					placeholder={'Enter your name...'}
-					value={name}
-					onChange={e => setName(e.target.value)}
-				/>
-			</label>
 			<Input
 				socket={socket}
 				onSubmitMessage={messageString => submitMessage(messageString)}
@@ -85,7 +75,7 @@ const Chat = () => {
 						key={index}
 						message={message.message}
 						name={message.name}
-						username={name}
+						username={props.username}
 					/>
 				)}
 			</div>
