@@ -1,8 +1,9 @@
 import React, {useEffect, useState, useRef} from 'react';
 import ChatInput from './Input';
 import ChatMessage from './Message';
+import { io } from 'socket.io-client';
 
-const URL = 'ws://localhost:3030';
+const URL = 'http://127.0.0.1:4001';
 
 const Chat = () => {
 	const [name, setName] = useState('name');
@@ -10,27 +11,43 @@ const Chat = () => {
 		
 	// leer mas https://www.grapecity.com/blogs/moving-from-react-components-to-react-hooks
 
-	const ws = useRef(new WebSocket(URL));
+	// create new websocket connection
+	const ws = useRef(io(URL, {transports: ['websocket']}));
 	
 	useEffect(() => {
 		ws.current.onopen = () => {
 			// on connecting, do nothing but log it to the console
 			console.log('connected');
 		}
-	
-		ws.current.onmessage = evt => {
+
+		// Listens for incoming messages
+		ws.current.on('chat message', (evt) => {
+			console.log(evt);
 			// on receiving a message, add it to the list of messages
-			const message = JSON.parse(evt.data);
+			const message = JSON.parse(evt);
 			addMessage(message);
-		}
+		});
 	
-		ws.current.onclose = () => {
+		// ws.current.onmessage = evt => {
+		// 	const message = JSON.parse(evt.data);
+		// 	addMessage(message);
+		// }
+	
+		ws.current.onerror = error => {
+			console.log(error);
+		}
+
+		ws.current.onclose = (event) => {
 			console.log('disconnected');
-			// automatically try to reconnect on connection loss
-			// whats the point of this??
-			// this.setState({
-			// 	ws: new WebSocket(URL),
-			// })
+			if (event.wasClean) {
+				alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+			} else {
+				// e.g. server process killed or network down
+				// event.code is usually 1006 in this case
+				alert('[close] Connection died');
+			}
+			// automatically try to reconnect on connection loss ?
+			// ws = useRef(new WebSocket(URL));
 		}
 	}, []);
 
@@ -41,8 +58,8 @@ const Chat = () => {
 	const submitMessage = messageString => {
 		// on submitting the ChatInput form, send the message, add it to the list and reset the input
 		const message = { name: name, message: messageString };
-		ws.current.send(JSON.stringify(message));
-		addMessage(message);
+		ws.current.emit('chat message', JSON.stringify(message));
+		// addMessage(message);
 		console.log('submitmessage');
 	}
 
