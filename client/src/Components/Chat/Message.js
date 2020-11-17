@@ -1,9 +1,11 @@
 import React from 'react';
+import classes from './Message.module.scss';
 
-const Message = ({ name, message }) => {
+
+const Message = ({ name, message, username }) => {
     return (
-        <p>
-            <strong>{name}</strong> {message}
+        <p className={username === name ? classes.mine : classes.others}>
+            <strong>{name}:</strong> {message}
         </p>
     )
 }
