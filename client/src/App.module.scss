@@ -3,7 +3,7 @@
 }
 
 .AppLogo {
-	height: 80px;
+	height: 50px;
 	pointer-events: none;
 }
 
@@ -15,12 +15,12 @@
 
 .AppHeader {
 	background-color: #282c34;
-	min-height: 200px;
+	min-height: 100px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
-	font-size: 22px;
+	font-size: 18px;
 	color: white;
 }
 

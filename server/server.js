@@ -60,8 +60,8 @@ var io = require('socket.io')(http);
 // listen to socket connection
 io.on('connection', (socket) => {
   console.log('a user connected');
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
+  socket.on('new_chat_message', (msg) => {
+    io.emit('new_chat_message', msg);
     console.log('message: ' + msg);
   });
   socket.on('disconnect', () => {

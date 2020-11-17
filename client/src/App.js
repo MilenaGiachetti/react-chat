@@ -8,7 +8,7 @@ const App = () => {
 		<div className={classes.App}>
 			<header className={classes.AppHeader}>
 				<img src={logo} className={classes.AppLogo} alt="logo" />
-				<h1 className={classes.AppTitle}>React Chat App with webSocket</h1>
+				<h1 className={classes.AppTitle}>React Chat App with Socket.io</h1>
 			</header>
 			<Chat />
 		</div>
