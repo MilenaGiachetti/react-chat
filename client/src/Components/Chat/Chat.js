@@ -8,12 +8,11 @@ import { io } from 'socket.io-client';
 const URL = 'http://127.0.0.1:4001';
 
 const Chat = (props) => {
-	// const [name, setName] = useState('name');
 	const [messages, setMessages] = useState([]);
 		
-	// leer mas https://www.grapecity.com/blogs/moving-from-react-components-to-react-hooks
-
+	
 	// create new websocket connection
+	// leer mas https://www.grapecity.com/blogs/moving-from-react-components-to-react-hooks
 	const socket = useRef(io(URL, {transports: ['websocket']}));
 	const params = useParams();
 	
@@ -33,10 +32,6 @@ const Chat = (props) => {
 		});
 		
 		socket.current.emit('join_chat', params.chatId);
-		// socket.current.onmessage = evt => {
-		// 	const message = JSON.parse(evt.data);
-		// 	addMessage(message);
-		// }
 	
 		socket.current.onerror = error => {
 			console.log(error);
@@ -64,8 +59,6 @@ const Chat = (props) => {
 		// on submitting the ChatInput form, send the message, add it to the list and reset the input
 		const message = { sender: props.username, message: messageString };
 		socket.current.emit('new_chat_message', JSON.stringify(message));
-		// addMessage(message);
-		console.log('submitmessage');
 	}
 
 	return (

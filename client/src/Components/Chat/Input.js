@@ -1,12 +1,7 @@
 import React, {useState} from 'react';
 import classes from './Input.module.scss';
 
-// import PropTypes from 'prop-types'
-
 const Input = (props) => {
-	// static propTypes = {
-	// 	onSubmitMessage: PropTypes.func.isRequired,
-	// }
 	const [message, setMessage] = useState('');
 
 	return (

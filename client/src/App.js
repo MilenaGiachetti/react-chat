@@ -30,14 +30,7 @@ const App = () => {
 
 				<Route path="/" exact  render={() => <h1>Chat to be</h1>}/>
 				<Route path="/chats/:chatId" render={() => <Chat username={username}/>}/>
-
-				{/* <Route path="/cat" exact render={() => <Chat username={username}/>}/>
-				<Route path="/dog" exact  render={() => <Chat username={username}/>}/> */}
-				{/* 
-				{username ?
-					<Chat username={username}/>
-					:null
-				} */}
+				
 			</div>
 		</div>
 		</BrowserRouter>
