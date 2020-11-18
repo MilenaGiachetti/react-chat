@@ -15,12 +15,13 @@
 
 .AppHeader {
 	background-color: #282c34;
-	min-height: 100px;
+	height: 100%;
+	min-height: 10vh;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
-	font-size: 18px;
+	font-size: 12px;
 	color: white;
 }
 

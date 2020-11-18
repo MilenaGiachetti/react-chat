@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import Input from './Input';
 import Message from './Message';
+import classes from './Chat.module.scss';
 import { io } from 'socket.io-client';
 
 const URL = 'http://127.0.0.1:4001';
@@ -64,12 +65,8 @@ const Chat = (props) => {
 	}
 
 	return (
-		<div>
-			<Input
-				socket={socket}
-				onSubmitMessage={messageString => submitMessage(messageString)}
-			/>
-			<div className="messagesContainer">
+		<div className={classes.Chat}>
+			<div className={classes.MessagesContainer}>
 				{messages.map((message, index) =>
 					<Message
 						key={index}
@@ -79,6 +76,11 @@ const Chat = (props) => {
 					/>
 				)}
 			</div>
+			<Input
+				className={classes.textInput}
+				socket={socket}
+				onSubmitMessage={messageString => submitMessage(messageString)}
+			/>
 		</div>
 	)
 }

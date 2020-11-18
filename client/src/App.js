@@ -13,11 +13,16 @@ const App = () => {
 				<img src={logo} className={classes.AppLogo} alt="logo" />
 				<h1 className={classes.AppTitle}>React Chat App with Socket.io</h1>
 			</header>
-			<SignIn onSubmitAction={(newUsername) => setUsername(newUsername)}/>
-			{username ?
-			<Chat username={username}/>
-			:null
-			}
+			<body>
+				{username ?
+					null
+					:<SignIn onSubmitAction={(newUsername) => setUsername(newUsername)}/>
+				}
+				{username ?
+					<Chat username={username}/>
+					:null
+				}
+			</body>
 		</div>
 	)
 }

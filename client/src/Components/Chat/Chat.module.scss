@@ -1,0 +1,21 @@
+.Chat {
+    width: 100%;
+    height: 100%;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    .MessagesContainer {
+        height: 70vh;
+        overflow-y: auto;
+        border: 2px solid rgba(92, 131, 214, 0.25);
+        width: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .textInput {
+        margin-top: auto;
+        width: 100%;
+    }
+}
