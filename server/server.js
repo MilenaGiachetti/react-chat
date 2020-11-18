@@ -60,10 +60,15 @@ var io = require('socket.io')(http);
 // listen to socket connection
 io.on('connection', (socket) => {
   console.log('a user connected');
-  socket.on('new_chat_message', (msg) => {
-    io.emit('new_chat_message', msg);
-    console.log('message: ' + msg);
-  });
+  socket.on('join_chat', (chat_name) => {
+    socket.join(chat_name);   
+    console.log(chat_name);
+    console.log('joined_chat');
+    socket.on('new_chat_message', (msg) => {
+      io.to(chat_name).emit('new_chat_message', msg);
+      console.log('message: ' + msg);
+    });
+  })
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });

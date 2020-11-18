@@ -21,6 +21,7 @@ const Chat = (props) => {
 			console.log('connected');
 		}
 
+		
 		// Listens for incoming messages
 		socket.current.on('new_chat_message', (evt) => {
 			console.log(evt);
@@ -28,7 +29,8 @@ const Chat = (props) => {
 			const message = JSON.parse(evt);
 			addMessage(message);
 		});
-	
+		
+		socket.current.emit('join_chat', props.room);
 		// socket.current.onmessage = evt => {
 		// 	const message = JSON.parse(evt.data);
 		// 	addMessage(message);
@@ -50,7 +52,7 @@ const Chat = (props) => {
 			// automatically try to reconnect on connection loss ?
 			// socket = useRef(new WebSocket(URL));
 		}
-	}, []);
+	}, [props.room]);
 
 	const addMessage = message => {
 		setMessages(prevMessages => ([message, ...prevMessages]));
