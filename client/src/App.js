@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, NavLink } from 'react-router-dom';
 import logo from './logo.svg';
 import classes from './App.module.scss';
 import Chat from './Components/Chat/Chat';
@@ -22,16 +22,18 @@ const App = () => {
 				}
 				{username ?
 					<div>
-						<li><Link to="/cat">Cat</Link></li>
-						<li><Link to="/dog">Dog</Link></li>
+						<li><NavLink to="/chats/cat">Cat</NavLink></li>
+						<li><NavLink to="/chats/dog">Dog</NavLink></li>
 					</div>
 					:null
 				}
 
 				<Route path="/" exact  render={() => <h1>Chat to be</h1>}/>
-				<Route path="/cat" exact render={() => <Chat username={username} room='cat'/>}/>
-				<Route path="/dog" exact  render={() => <Chat username={username} room='dog'/>}/>
-{/* 
+				<Route path="/chats/:chatId" render={() => <Chat username={username}/>}/>
+
+				{/* <Route path="/cat" exact render={() => <Chat username={username}/>}/>
+				<Route path="/dog" exact  render={() => <Chat username={username}/>}/> */}
+				{/* 
 				{username ?
 					<Chat username={username}/>
 					:null

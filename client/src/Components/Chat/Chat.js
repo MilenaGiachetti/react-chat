@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
+import { useParams } from 'react-router-dom';
 import Input from './Input';
 import Message from './Message';
 import classes from './Chat.module.scss';
@@ -14,6 +15,7 @@ const Chat = (props) => {
 
 	// create new websocket connection
 	const socket = useRef(io(URL, {transports: ['websocket']}));
+	const params = useParams();
 	
 	useEffect(() => {
 		socket.current.onopen = () => {
@@ -30,7 +32,7 @@ const Chat = (props) => {
 			addMessage(message);
 		});
 		
-		socket.current.emit('join_chat', props.room);
+		socket.current.emit('join_chat', params.chatId);
 		// socket.current.onmessage = evt => {
 		// 	const message = JSON.parse(evt.data);
 		// 	addMessage(message);
@@ -52,7 +54,7 @@ const Chat = (props) => {
 			// automatically try to reconnect on connection loss ?
 			// socket = useRef(new WebSocket(URL));
 		}
-	}, [props.room]);
+	}, [params]);
 
 	const addMessage = message => {
 		setMessages(prevMessages => ([message, ...prevMessages]));
