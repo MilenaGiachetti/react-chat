@@ -10,8 +10,10 @@ const Input = (props) => {
 			action="."
 			onSubmit={e => {
 				e.preventDefault()
-				props.onSubmitMessage(message)
-				setMessage('')
+				if(message !== '') {
+					props.onSubmitMessage(message)
+					setMessage('')
+				}
 			}}
 		>
 			<input

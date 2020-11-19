@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, Fragment} from 'react';
 import { useParams } from 'react-router-dom';
 import Input from './Input';
 import Message from './Message';
@@ -62,7 +62,7 @@ const Chat = (props) => {
 	}
 
 	return (
-		<div className={classes.Chat}>
+		<Fragment>
 			<div className={classes.MessagesContainer}>
 				{messages.map((message, index) =>
 					<Message
@@ -78,7 +78,7 @@ const Chat = (props) => {
 				socket={socket}
 				onSubmitMessage={messageString => submitMessage(messageString)}
 			/>
-		</div>
+		</Fragment>
 	)
 }
 

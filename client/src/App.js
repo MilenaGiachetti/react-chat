@@ -1,38 +1,33 @@
 import React, {useState} from 'react';
-import { BrowserRouter, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import logo from './logo.svg';
 import classes from './App.module.scss';
-import Chat from './Components/Chat/Chat';
-import SignIn from './Components/SignIn/SignIn';
+import Login from './routes/Login/Login';
+import ChatLayout from './routes/ChatLayout/ChatLayout';
 
 const App = () => {
 	const [username, setUsername] = useState('');
 
 	return (
 		<BrowserRouter>
-		<div className={classes.App}>
-			<header className={classes.AppHeader}>
-				<img src={logo} className={classes.AppLogo} alt="logo" />
-				<h1 className={classes.AppTitle}>React Chat App with Socket.io</h1>
+			<header className={classes.Header}>
+				<img src={logo} className={classes.Logo} alt="logo" />
+				<h1 className={classes.Title}>React Chat App with Socket.io</h1>
 			</header>
-			<div className={classes.Body}>
-				{username ?
-					null
-					:<SignIn onSubmitAction={(newUsername) => setUsername(newUsername)}/>
-				}
-				{username ?
-					<div>
-						<li><NavLink to="/chats/cat">Cat</NavLink></li>
-						<li><NavLink to="/chats/dog">Dog</NavLink></li>
-					</div>
-					:null
-				}
+			<main className={classes.Main}>
+				{/* Route Control */}
+				<Switch>
+					{/* if not auth - guard */}
+					{	
+						username 
+						? <Route path="/" render={() => <ChatLayout username={username}/>}/>
+						: <Route path="/" exact  render={() => <Login onSubmitAction={(newUsername) => setUsername(newUsername)}/>}/>
+					}
+					<Redirect from="/" to="/" />
+				</Switch>
 
-				<Route path="/" exact  render={() => <h1>Chat to be</h1>}/>
-				<Route path="/chats/:chatId" render={() => <Chat username={username}/>}/>
-				
-			</div>
-		</div>
+			</main>
+			<footer className={classes.Footer}></footer>
 		</BrowserRouter>
 	)
 }
