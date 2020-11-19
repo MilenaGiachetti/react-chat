@@ -1,0 +1,40 @@
+@import '../../../assets/variables';
+
+.message {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: left;
+    line-height: 1.2;
+    color: #fff;
+    max-width: 60%;
+    &:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        bottom: 0;
+    }
+}
+
+.user {
+    background-color: $secondary_dark_color;
+    border-radius: 15px 15px 0 15px; 
+    margin: 10px 20px 10px auto;
+    &:before {
+        border-bottom: 8px solid $secondary_dark_color;
+        border-right: 10px solid transparent;
+        right: -10px;
+    }
+}
+
+.others {
+    background-color: #133df6;
+    border-radius: 15px 15px 15px 0; 
+    margin: 10px auto 10px 20px;
+    &:before {
+        border-bottom: 8px solid #133df6;
+        border-left: 10px solid transparent;
+        left: -10px;
+    }
+}
