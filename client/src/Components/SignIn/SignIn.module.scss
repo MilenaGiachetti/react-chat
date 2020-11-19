@@ -1,7 +1,10 @@
+@import '../../assets/variables';
+
 .SignInCtn {
     display: inline-block;
     padding: 50px;
     border-radius: 20px;
     margin: 100px auto;
-    background-color: rgba(92, 131, 214, 0.25);
+    background-color: $primary_light_color;
+    // border: 2px solid $accent_color;
 }
