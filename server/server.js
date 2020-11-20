@@ -36,5 +36,5 @@ reqs.app.get('/*', (req, res)=> {
 
 
 http.listen(4001, () => {
-  	console.log('listening on *:4001');
+  	console.log('listening on Port: 4001');
 });

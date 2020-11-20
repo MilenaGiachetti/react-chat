@@ -78,7 +78,6 @@ CREATE TABLE `users` (
   `username` varchar(30) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `xid` varchar(255) NOT NULL,
   `is_active` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()

@@ -11,24 +11,29 @@ exports.authenticateUser = (req, res, next) => {
     if(req.headers.authorization === undefined){
         res.status(401).json(
             {"error": 
-                {"status": "401",
-                "message": "user validation error, log in to see this page"
+                {
+                    "status": "401",
+                    "message": "User validation error, log in to use this resource"
                 }
             }
         )
     } else {
         const token = req.headers.authorization.split(' ')[1];
         const verifiedToken = reqs.jwt.verify(token, jwtPass);
-        let sql =  `SELECT * FROM users 
-                    WHERE user_id = ?`;
-        sequelize.query( sql, {
+        console.log(token);
+        console.log(verifiedToken);
+        let sql =  
+            `SELECT id, username, email, is_admin, is_active, created_at, updated_at  FROM users 
+            WHERE id = ?`;
+        sequelize.query(sql, {
             replacements: [verifiedToken.user_id], type:sequelize.QueryTypes.SELECT
         }).then(user => {
             if(user === undefined  || !(user.length > 0)){
                 res.status(401).json(
                     {"error": 
-                        {"status": "401",
-                        "message": "user validation error, log in to see this page"
+                        {
+                            "status": "401",
+                            "message": "user validation error, log in to see this page"
                         }
                     }
                 )
@@ -40,8 +45,9 @@ exports.authenticateUser = (req, res, next) => {
         }).catch((err)=>{
             res.status(500).json(
                 {"error": 
-                    {"status": "500",
-                    "message": "Internal Server Error: " + err
+                    {
+                        "status": "500",
+                        "message": "Internal Server Error: " + err
                     }
                 }
             )
@@ -51,20 +57,21 @@ exports.authenticateUser = (req, res, next) => {
 /*-----------------AUTHORIZATE A USER-----------------*/
 exports.authorizateUser = (req, res, next) => {
     if(req.headers.authorization === undefined){
-        /*403 or 401? Beacause if theres no header there hasnt been a log in*/
-        res.status(403).json(
+        res.status(401).json(
             {"error": 
-                {"status": "403",
-                "message": "user not authorized to see this information"
+                {
+                    "status": "401",
+                    "message": "User validation error, log in to use this resource"
                 }
             }
         )
     } else {
         const token = req.headers.authorization.split(' ')[1];
         const verifiedToken = reqs.jwt.verify(token, jwtPass);
-        let sql =  `SELECT * FROM users 
-                    WHERE user_id = ? 
-                    AND is_admin = 'TRUE'`;
+        let sql =  
+            `SELECT id, username, email, is_admin, is_active, created_at, updated_at FROM users 
+            WHERE id = ? 
+            AND is_admin = 1`;
         sequelize.query( sql, {
             replacements: [verifiedToken.user_id], type:sequelize.QueryTypes.SELECT
         }).then(user => {
@@ -72,20 +79,23 @@ exports.authorizateUser = (req, res, next) => {
             if(user === undefined  || !(user.length > 0)){
                 res.status(403).json(
                     {"error": 
-                        {"status": "403",
-                        "message": "user not authorized to see this information"
+                        {
+                            "status": "403",
+                            "message": "User not authorized to use this resource"
                         }
                     }
                 )
             } else{
                 /*is given access to existent users that have ADMIN ROL*/
+                req.user = user;
                 next();
             }
         }).catch((err)=>{
             res.status(500).json(
                 {"error": 
-                    {"status": "500",
-                    "message": "Internal Server Error: " + err
+                    {
+                        "status": "500",
+                        "message": "Internal Server Error: " + err
                     }
                 }
             )

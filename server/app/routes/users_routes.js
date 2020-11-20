@@ -8,24 +8,11 @@ module.exports = app => {
     /*-----------------ADD A USER-----------------*/
     router.post('/', users.addOne);
 
-    /*example of info to send in the body:
+    /*example of info to send in the body: // JSON
     {
         "username": "LukeSky",
-        "firstname": "Luke",
-        "lastname": "Skywalker",
-        "email": "lukeskywalker@jedi.sw",
-        "adress": "526 Tatooine",
-        "phone": 1545879563,
-        "password": "Luke"
-    }
-    {
-        "username": "Leia",
-        "firstname": "Leia",
-        "lastname": "Organa",
-        "email": "leiaorgana@kindajedi.sw",
-        "adress": "326 Alderaan",
-        "phone": 1512549563,
-        "password": "Leia"
+        "email": "luke@sky.com",
+        "password": "12341234"
     }
     */
 
@@ -43,20 +30,19 @@ module.exports = app => {
 
     /*example of info to send in the body:
     {
-        "username": "LukeSky",
-        "firstname": "Luke",
-        "adress": "1528 Tatooine",
-        "phone": 1545879563,
+        "username": "LukeSky2",
+        "email": "luke2@sky.com",
+        "password": "123412342"
     }
     {
-        "email": "leiaorgana@starwars.com",
+        "email": "newluke@sky.com",
     }
     */
 
     /*-----------------DELETE A USER-----------------*/
     router.delete('/:id', middlewares.authenticateUser, users.deleteOne);
 
-    /*---------------------------------------------USER LOG IN---------------------------------------------*/
+    /*---------------------------------------------USER LOG IN---------------------------------------------/add expiration to token*/
     router.post('/login', users.login)
     
     /*-----------------ROUTES EXAMPLE USING THE EXISTENT MIDDLEWARES(eliminate)-----------------*/
