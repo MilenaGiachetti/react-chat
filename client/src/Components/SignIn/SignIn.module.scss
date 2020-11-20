@@ -1,10 +1,15 @@
 @import '../../assets/variables';
 
 .SignInCtn {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     padding: 50px;
     border-radius: 20px;
     margin: 100px auto;
     background-color: $primary_light_color;
     // border: 2px solid $accent_color;
+    input {
+        margin: 10px 0;
+        padding: 5px;
+    }
 }

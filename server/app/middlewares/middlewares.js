@@ -23,8 +23,6 @@ exports.authenticateUser = (req, res, next) => {
     } else {
         const token = req.headers.authorization.split(" ")[1];
         const verifiedToken = reqs.jwt.verify(token, jwtPass);
-        console.log(token);
-        console.log(verifiedToken);
         let sql =  
             `SELECT id, username, email, is_admin, is_active, created_at, updated_at  FROM users 
             WHERE id = ?`;
@@ -57,7 +55,6 @@ exports.authorizateUser = (req, res, next) => {
         sequelize.query( sql, {
             replacements: [verifiedToken.user_id], type:sequelize.QueryTypes.SELECT
         }).then(user => {
-            console.log(user);
             if(user === undefined  || !(user.length > 0)){
                 sendErrorStatus(res, 403, "User not authorized to use this resource", "NO_AUTH");
             } else{

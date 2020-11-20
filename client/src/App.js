@@ -2,11 +2,25 @@ import React, {useState} from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import logo from './logo.svg';
 import classes from './App.module.scss';
-import Login from './routes/Login/Login';
+import Auth from './routes/Auth/Auth';
 import ChatLayout from './routes/ChatLayout/ChatLayout';
+import axios from 'axios';
 
 const App = () => {
 	const [username, setUsername] = useState('');
+
+	const checkAuth = (authUsername, authPassword) => {
+		setUsername(authUsername);
+		const credentials = {
+			username: authUsername,
+			password: authPassword
+		};
+		// axios hace el stringify automáticamente de un js object a JSON data (hizo lo mismo en sentido contrario en el GET)
+		axios.post('http://127.0.0.1:4001/users/login', credentials)
+			.then(response => {
+				console.log(response);
+			});
+	}
 
 	return (
 		<BrowserRouter>
@@ -21,7 +35,7 @@ const App = () => {
 					{	
 						username 
 						? <Route path="/" render={() => <ChatLayout username={username}/>}/>
-						: <Route path="/" exact  render={() => <Login onSubmitAction={(newUsername) => setUsername(newUsername)}/>}/>
+						: <Route path="/" exact  render={() => <Auth onSubmitAction={(authUsername, authPassword) => checkAuth(authUsername, authPassword)}/>}/>
 					}
 					<Redirect from="/" to="/" />
 				</Switch>
