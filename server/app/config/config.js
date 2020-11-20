@@ -1,11 +1,11 @@
-const express  = require('express'),
+const express  = require("express"),
     app        = express(),
-    bodyParser = require('body-parser'),
-    cors       = require('cors'),
-    bcrypt     = require('bcrypt'),
+    bodyParser = require("body-parser"),
+    cors       = require("cors"),
+    bcrypt     = require("bcrypt"),
     saltRounds = 10,
-    jwt        = require('jsonwebtoken'),
-    jwtPass    = 'uNpASSWORDuNp0c0Malo97531';
+    jwt        = require("jsonwebtoken"),
+    jwtPass    = "uNpASSWORDuNp0c0Malo97531";
 
 app.use(cors());
 app.use(bodyParser.json());

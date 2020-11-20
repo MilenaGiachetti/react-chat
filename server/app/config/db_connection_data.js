@@ -1,7 +1,7 @@
-const   conf_db_name  = 'react_chat',     // database name
-        conf_user     = 'root',           // user name
-        conf_password = '',               // password
-        conf_port     = '3306';           // port number
+const   conf_db_name  = "react_chat",     // database name
+        conf_user     = "root",           // user name
+        conf_password = "",               // password
+        conf_port     = "3306";           // port number
 
 module.exports = {
         conf_db_name  : conf_db_name,
