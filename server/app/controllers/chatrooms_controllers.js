@@ -72,84 +72,17 @@ exports.addOne = (req,res) => {
     }
 }
 
-/*-----------------ADD AN ADMIN-----------------*/
-exports.addAdmin = (req,res) => {
-    //error message in case of missing required info 422 or 400?
-    let missingInfo = [];
-    req.body.username   !== undefined ? "" : missingInfo.push("username");
-    req.body.email      !== undefined ? "" : missingInfo.push("email");
-    req.body.password   !== undefined ? "" : missingInfo.push("password");
-    
-    if (missingInfo.length === 0) {
-        //check if is a valid email adress with regulaar expressions
-        if(validateEmail(req.body.email)){
-            let sql =  
-                `SELECT username, email, is_admin 
-                FROM users 
-                WHERE username = ? OR email = ?`;
-            sequelize.query(sql, {
-                replacements: [req.body.username, req.body.email], type:sequelize.QueryTypes.SELECT
-            }).then(repeated_users => {
-                if (repeated_users.length === 0) {
-                    /*hashing password before sending information*/
-                    reqs.bcrypt.genSalt(reqs.saltRounds, (err, salt) => {
-                        reqs.bcrypt.hash(req.body.password, salt, (err, hash) => {
-                            let user = {
-                                id         : null,
-                                username   : req.body.username,
-                                email      : req.body.email,
-                                password   : hash,
-                                is_admin   : 1,
-                                is_active  : 0,
-                                created_at : null,
-                                updated_at : null
-                            };
-                            let sql = `INSERT INTO users VALUES (:id, :username, :email, :password, :is_admin, :is_active, :created_at, :updated_at)`;
-                            sequelize.query(sql, {
-                                replacements: user
-                            }).then(result => {
-                                user.id = result[0];
-                                delete user.password;
-                                res.status(200).json(user);
-                                /*it should also return the token so it can be already logged in ?*/
-                            }).catch((err) => {
-                                sendErrorStatus(res, 500, `Internal Server Error: ${err}`, "SERVER_ERROR");
-                            })
-                        });
-                    });
-                } else {
-                    //error handling when there is/are repeated username and/or email
-                    let email = false;
-                    let username = false;
-                    //checking what is repeated
-                    repeated_users.forEach(repeated_user => {
-                        email += (repeated_user.email === req.body.email ? true : email);
-                        username += (repeated_user.username === req.body.username ? true : username);
-                    });
-                    //sending error message
-                    sendErrorStatus(res, 400, `${email && username ? "Username and email" : (email ? "Email" : "Username")} already exists`, "REPEATED_DATA");
-                }
-            }).catch((err)=>{
-                sendErrorStatus(res, 500, `Internal Server Error: ${err}`, "SERVER_ERROR");
-            })
-        } else {
-            sendErrorStatus(res, 400, "Invalid Email", "INVALID_EMAIL");
-        }
-    } else {
-        sendErrorStatus(res, 400, `Missing data: ${missingInfo.join(" - ")}`, "MISSING_DATA");
-    }
-}
-
-/*-----------------SEE ALL USERS-----------------*/
+/*-----------------SEE ALL CHATROOMS-----------------*/
+// Modify so user can get all th public chatrooms and all the private and group chatrooms they participe in - maybe have an optional param for chatroom type :type
 exports.findAll = (req,res) => {
-    let sql = `SELECT id, username, email, is_admin, is_active, created_at, updated_at FROM users`;
+    let sql = `SELECT id, creator_id, type, name, description, created_at, updated_at FROM chatrooms`;
     sequelize.query(sql, {
         type:sequelize.QueryTypes.SELECT
-    }).then(all_users => {
-        if (all_users.length === 0) {
-            sendErrorStatus(res, 404, "Database doesn't have any users", "NOT_EXIST");
+    }).then(all_chatrooms => {
+        if (all_chatrooms.length === 0) {
+            sendErrorStatus(res, 404, "Database doesn't have any chatrooms", "NOT_EXIST");
         } else {
-            res.status(200).json(all_users);
+            res.status(200).json(all_chatrooms);
         }
     }).catch((err)=>{
         sendErrorStatus(res, 500, `Internal Server Error: ${err}`, "SERVER_ERROR");
