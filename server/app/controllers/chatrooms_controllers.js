@@ -75,9 +75,11 @@ exports.addOne = (req,res) => {
 /*-----------------SEE ALL CHATROOMS-----------------*/
 // Modify so user can get all th public chatrooms and all the private and group chatrooms they participe in - maybe have an optional param for chatroom type :type
 exports.findAll = (req,res) => {
-    let sql = `SELECT id, creator_id, type, name, description, created_at, updated_at FROM chatrooms`;
+    let sql = `SELECT id, creator_id, type, name, description, created_at, updated_at 
+        FROM chatrooms 
+        ${req.params.type === undefined ? `` : `WHERE type = ?`}`;
     sequelize.query(sql, {
-        type:sequelize.QueryTypes.SELECT
+        replacements: [req.params.type], type:sequelize.QueryTypes.SELECT
     }).then(all_chatrooms => {
         if (all_chatrooms.length === 0) {
             sendErrorStatus(res, 404, "Database doesn't have any chatrooms", "NOT_EXIST");
@@ -214,47 +216,5 @@ exports.deleteOne = (req, res) => {
         })
     } else {
         sendErrorStatus(res, 403, "User not authorized to use this resource", "NO_AUTH");
-    }
-}
-
-/*---------------------------------------------USER LOG IN--------------------------------------------*/
-exports.login = (req,res) => {
-    let missingInfo = [];
-    req.body.username   !== undefined ? "" : missingInfo.push("username");
-    req.body.email      !== undefined ? "" : missingInfo.push("email");
-    req.body.password   !== undefined ? "" : missingInfo.push("password");
-
-    if (missingInfo.length <= 1 && missingInfo[0] !== "password") {
-        const jwtPass = reqs.jwtPass;
-        let sql =  
-            `SELECT * FROM users 
-            WHERE (username = :username OR email = :email)`;
-        sequelize.query(sql, {
-            replacements: {username : req.body.username , email: req.body.username}, type:sequelize.QueryTypes.SELECT
-        }).then(result => {
-            if(result.length !== 0){
-                async function checkPass(){
-                    const match = await reqs.bcrypt.compare(req.body.password, result[0].password);
-                    /*error management*/
-                    if (match){
-                        /*token created and sent when correct data is given*/
-                        let user_id = result[0].id;
-                        const token = reqs.jwt.sign({
-                            user_id,
-                        }, jwtPass);
-                        res.status(200).json({token: token, user_id: user_id});
-                    } else {
-                        sendErrorStatus(res, 401, "Incorrect user credentials", "INCORRECT_DATA");
-                    }
-                }
-                checkPass();
-            } else {
-                sendErrorStatus(res, 404, "No user with these credentials", "NOT_EXIST");
-            }
-        }).catch((err) => {
-            sendErrorStatus(res, 500, `Internal Server Error: ${err}`, "SERVER_ERROR");
-        })
-    } else {
-        sendErrorStatus(res, 403, `Missing information: ${missingInfo.join(" - ")}`, "MISSING_DATA");
     }
 }

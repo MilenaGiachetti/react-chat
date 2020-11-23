@@ -8,8 +8,11 @@ module.exports = app => {
     /*-----------------ADD A CHATROOM-----------------*/
     router.post("/", middlewares.authenticateUser, chatrooms.addOne);
 
-    /*-----------------SEE ALL CHATROOMS-----------------*/
-    router.get("/", middlewares.authenticateUser, chatrooms.findAll)
+    /*-----------------SEE ALL CHATROOMS BY TYPE-----------------*/
+    router.get("/:type?", middlewares.authenticateUser, chatrooms.findAll)
+    // options: public, group, private, empty (to see all)
+
+    /*-----------------SEE ALL CHATROOMS BY USER-----------------*/
 
     /*-----------------SEE A CHATROOM-----------------*/
     router.get("/:id", middlewares.authenticateUser, chatrooms.findOne);
