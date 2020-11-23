@@ -22,6 +22,23 @@ const ChatLayout = (props) => {
 			});
 	},[props.token])
 
+    const addChatHandler = () => {
+        const config = {
+            headers: { Authorization: `Bearer ${props.token}` }
+        };
+        const bodyParameters = {
+            type: "public",
+            name: "Nuevo chat",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam leo purus, varius id mi ut, mattis gravida ante. Cras nisi neque, mollis quis vehicula eu, volutpat sed metus."
+        };
+		axios.post('http://127.0.0.1:4001/chatrooms/', bodyParameters, config)
+			.then(response => {
+                console.log(response);
+			}).catch((error) => {
+				console.log(error);
+			});
+    }
+
     useEffect(() => {
         getChats();
     }, [getChats])
@@ -34,6 +51,7 @@ const ChatLayout = (props) => {
                         return <li key={chat.id}><NavLink className={classes.NavLink} to={`/chats/${chat.name}`}>{chat.name}</NavLink></li>
                     })}
                 </ul>
+                <button onClick={addChatHandler}>Add Chat</button>
             </nav>
             <div className={classes.ChatContainer}>
                 <Route path="/chats/:chatId" render={() => <Chat username={props.username} key={window.location.pathname}/>}/>
