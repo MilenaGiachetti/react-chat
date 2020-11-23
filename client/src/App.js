@@ -10,15 +10,16 @@ const App = () => {
 	const [username, setUsername] = useState('');
 
 	const checkAuth = (authUsername, authPassword) => {
-		setUsername(authUsername);
 		const credentials = {
 			username: authUsername,
 			password: authPassword
 		};
-		// axios hace el stringify automáticamente de un js object a JSON data (hizo lo mismo en sentido contrario en el GET)
 		axios.post('http://127.0.0.1:4001/users/login', credentials)
 			.then(response => {
 				console.log(response);
+				setUsername(authUsername);
+			}).catch((error) => {
+				console.log(error);
 			});
 	}
 
