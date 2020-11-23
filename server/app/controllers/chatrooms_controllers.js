@@ -89,27 +89,24 @@ exports.findAll = (req,res) => {
     })
 }
 
-/*-----------------SEE A USER-----------------*/
+/*-----------------SEE A CHATROOM-----------------*/
+// if its not a public chatroom check if the user is a participant in it
 exports.findOne = (req, res) => {
-    if(req.user[0].id == req.params.id || req.user[0].is_admin === 1){
-        let sql =  
-            `SELECT id, username, email, is_admin, is_active, created_at, updated_at  
-            FROM users 
-            WHERE id = ?`;
-        sequelize.query(sql, {
-            replacements: [req.params.id], type:sequelize.QueryTypes.SELECT
-        }).then(user => {
-            if (user.length === 0) {
-                sendErrorStatus(res, 404, `User with the id ${req.params.id} doesn't exist`, "NOT_EXIST");
-            } else {
-                res.status(200).json(user[0]);
-            }
-        }).catch((err)=>{
-            sendErrorStatus(res, 500, `Internal Server Error: ${err}`, "SERVER_ERROR");
-        })
-    } else {
-        sendErrorStatus(res, 403, "User not authorized to use this resource", "NO_AUTH"); 
-    }
+    let sql =  
+        `SELECT id, creator_id, type, name, description, created_at, updated_at 
+        FROM chatrooms
+        WHERE id = ?`;
+    sequelize.query(sql, {
+        replacements: [req.params.id], type:sequelize.QueryTypes.SELECT
+    }).then(user => {
+        if (user.length === 0) {
+            sendErrorStatus(res, 404, `Chatroom with the id ${req.params.id} doesn't exist`, "NOT_EXIST");
+        } else {
+            res.status(200).json(user[0]);
+        }
+    }).catch((err)=>{
+        sendErrorStatus(res, 500, `Internal Server Error: ${err}`, "SERVER_ERROR");
+    })
 }
 
 /*-----------------UPDATE A USER-----------------*/
