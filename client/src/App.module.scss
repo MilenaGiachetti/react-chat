@@ -1,45 +1,10 @@
 @import './assets/variables';
 
-// Header
-.Header {
-	height: 100%;
-	min-height: 80px;
-	position: relative;
-	z-index: 2;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-start;
-	background-color: $primary_dark_color;
-	font-size: 12px;
-	color: $primary_light_color;
-	box-shadow: 0px 5px 61px 0px rgba(20,33,61,0.5);
-	.Logo {
-		height: 50px;
-		pointer-events: none;
-	}
-}
-
-
-@media (prefers-reduced-motion: no-preference) {
-	.Logo {
-		animation: App-logo-spin infinite 20s linear;
-	}
-}
-
-@keyframes App-logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
-}
-
 // Main
 .Main {
+	font-family: 'Source Sans Pro', sans-serif;
 	height: 100%;
-	min-height: calc(100vh - 120px);
+	min-height: 100vh;
 	background-color: $primary_dark_color;
 }
 

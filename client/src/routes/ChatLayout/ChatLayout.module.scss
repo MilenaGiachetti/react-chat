@@ -2,20 +2,113 @@
 
 .ChatLayout {
     width: 100vw;
-    height: calc(100vh - 120px);
+    height: 100vh;
     display: flex;
+    background-color: #eeeef6;
     .Nav {
-        padding: 20px;
+        height: 100vh;
+        overflow-y: auto;
+        position: relative;
+        padding: 20px 0;
         min-width: 20vw;
-        .NavLink {
-            display: block;
-            width: 100%;
-            color: $primary_light_color;
-            text-decoration: none;
-            padding: 10px 0;
+        .title {
+            display: flex;
+            align-items: center;
+            margin: 10px 15px 20px 15px;
+            .search {
+                all: unset;
+                cursor: pointer;
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                background-color: #e1e1e1;
+                color: #b5b5b5;
+                text-align: center;
+                margin-left: auto;
+            }
+        }
+        h3 {
+            margin: 10px 15px;
+        }
+        .emptyChats {
+            margin: 5px 20px 25px 15px;
+            display: flex;
+            color: #9f9f9f;
+            i {
+                margin-left: 20px;
+            }
+        }
+        ul {
+            list-style: none;
+            li {
+                .NavLink {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    width: 100%;
+                    color: #000;
+                    text-decoration: none;
+                    padding: 20px 15px;
+                    &:hover,  &.active {
+                        background: rgba(217, 4, 41, 0.2);
+                        background: linear-gradient(90deg, rgba(217,4,41,0.2) 0%, rgba(217,4,41,0) 100%);
+                        border-left: 2px solid #D90429;    
+                        padding-left: 13px;
+                    }
+                    .chatImage {
+                        border-radius: 50%;
+                    }
+                    .chatContent {
+                        width: 100%;
+                        padding: 0 10px;
+                        display: block;
+                        .chatTitle {
+                            font-family: 'Montserrat', sans-serif;
+                            margin-bottom: 5px;
+                            display: flex;
+                            align-items: flex-end;
+                            font-size: 14px;
+                            font-weight: 500;
+                            .chatTime {
+                                font-family: 'Source Sans Pro', sans-serif;
+                                padding-bottom: 2px;
+                                display: inline-block;
+                                font-size: 12px;
+                                text-align: right;
+                                margin-left: auto;
+                                color: #313ba7;
+                            }
+                        }
+                        .chatMessage {
+                            font-size: 14px;
+                            font-weight: 300;
+                            color: #313ba7;
+                        }
+                    }
+                }
+            }
+        }
+        .addChat {
+            all: unset;
+            cursor: pointer;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            background-color: #D90429;
+            min-height: 40px;
+            color: #fff;
+            text-align: center;
+            position: absolute;
+            bottom: 70px;
+            right: 20px;
+            transition: all 0.3s ease-out;
+            &:hover {
+                box-shadow: 0 0 3px #D90429;
+            }
         }
     }
     .ChatContainer {
+        background-color: #fff;
         padding: 20px;
         width: 100%;
         display: flex;
@@ -23,4 +116,56 @@
         justify-content: center;
         align-items: center;
     }
+}
+
+// Header
+.Header {
+    margin: 15px 0 15px 15px;
+    padding: 10px 0;
+	position: relative;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	background-color: #313ba7;
+    font-size: 12px;
+    border-radius: 20px;
+	color: $primary_dark_color;
+	.Logo {
+		height: 50px;
+		pointer-events: none;
+    }
+    nav {
+        margin-top: auto;
+        ul {
+            list-style: none;
+            i {
+                margin: 10px 0;
+                padding: 10px;
+                font-size: 20px;
+                border-radius: 10px;
+                color: #fff;
+                &:hover{
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+            }
+        }
+    }
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+	.Logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }

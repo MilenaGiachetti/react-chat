@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import logo from './logo.svg';
 import classes from './App.module.scss';
 import Auth from './routes/Auth/Auth';
 import ChatLayout from './routes/ChatLayout/ChatLayout';
@@ -27,10 +26,10 @@ const App = () => {
 
 	return (
 		<BrowserRouter>
-			<header className={classes.Header}>
+			{/* <header className={classes.Header}>
 				<img src={logo} className={classes.Logo} alt="logo" />
 				<h1 className={classes.Title}>React Chat App with Socket.io</h1>
-			</header>
+			</header> */}
 			<main className={classes.Main}>
 				{/* Route Control */}
 				<Switch>
@@ -44,7 +43,7 @@ const App = () => {
 				</Switch>
 
 			</main>
-			<footer className={classes.Footer}></footer>
+			{/* <footer className={classes.Footer}></footer> */}
 		</BrowserRouter>
 	)
 }

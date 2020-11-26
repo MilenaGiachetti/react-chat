@@ -1,5 +1,6 @@
 import {useEffect, useCallback, useState} from 'react';
 import classes from './ChatLayout.module.scss';
+import logo from '../../logo.svg';
 import {NavLink, Route} from 'react-router-dom';
 import Chat from '../../Components/Chat/Chat';
 import axios from 'axios';
@@ -45,14 +46,53 @@ const ChatLayout = (props) => {
 
 	return (
         <section className={classes.ChatLayout}>
-            <nav className={classes.Nav}>
+            <header className={classes.Header}>
+				<img src={logo} className={classes.Logo} alt="logo" />
+				{/* <h1 className={classes.Title}>React Chat App with Socket.io</h1> */}
+                <nav>
+                    <ul>
+                        <li><i className="fas fa-comment-alt"></i></li>
+                        <li><i className="fas fa-cog"></i></li>
+                        <li><i className="fas fa-moon"></i></li>
+                    </ul>
+                </nav>
+			</header>
+
+            <div className={classes.Nav}>
+                <div className={classes.title}>
+                    <h2>Messages</h2>
+                    <button className={classes.search}>
+                        <i className="fas fa-search"></i>
+                    </button>
+                </div>
+                <h3>Public Chats</h3>
                 <ul>
                     {chatrooms.map( chat => {
-                        return <li key={chat.id}><NavLink className={classes.NavLink} to={`/chats/${chat.name}`}>{chat.name}</NavLink></li>
+                        return ( 
+                            <li key={chat.id}>
+                                <NavLink className={classes.NavLink} activeClassName={classes.active} to={`/chats/${chat.name}`}>
+                                    <img className={classes.chatImage} src="http://placeimg.com/40/40/animals" alt="User"></img>
+                                    <span className={classes.chatContent}>
+                                        <p className={classes.chatTitle}>{chat.name}<span className={classes.chatTime}>03:20</span></p>
+                                        <p className={classes.chatMessage}>Lorem ipsum dolorem amit.</p>
+                                    </span>
+                                </NavLink>
+                            </li>)
                     })}
                 </ul>
-                <button onClick={addChatHandler}>Add Chat</button>
-            </nav>
+                <h3>Group Chats</h3>
+                <div className={classes.emptyChats}>
+                    <p>No chats yet</p>
+                    <i className="fas fa-kiwi-bird">..</i>
+                </div>
+                <h3>Private Chats</h3>
+                <div className={classes.emptyChats}>
+                    <p>No chats yet</p>
+                    <i className="fas fa-kiwi-bird">..</i>
+                </div>
+
+                <button onClick={addChatHandler} className={classes.addChat}><i className="fas fa-plus"></i></button>
+            </div>
             <div className={classes.ChatContainer}>
                 <Route path="/chats/:chatId" render={() => <Chat username={props.username} key={window.location.pathname}/>}/>
             </div>

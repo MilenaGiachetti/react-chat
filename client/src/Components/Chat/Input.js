@@ -23,11 +23,12 @@ const Input = (props) => {
 				value={message}
 				onChange={e => setMessage( e.target.value )}
 			/>
-			<input 
+			<button
 				type="submit" 
-				value='Send'
 				className={classes.Button}
-			/>
+			>
+				<i className="fas fa-paper-plane"></i>
+			</button>
 		</form>
 	)
 }

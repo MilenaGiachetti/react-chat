@@ -18,22 +18,23 @@
 }
 
 .user {
-    background-color: $secondary_dark_color;
+    background-color: #eeeef6;
     border-radius: 15px 15px 0 15px; 
     margin: 10px 20px 10px auto;
+    color: #000;
     &:before {
-        border-bottom: 8px solid $secondary_dark_color;
+        border-bottom: 8px solid #eeeef6;
         border-right: 10px solid transparent;
         right: -10px;
     }
 }
 
 .others {
-    background-color: #133df6;
+    background-color: #313ba7;
     border-radius: 15px 15px 15px 0; 
     margin: 10px auto 10px 20px;
     &:before {
-        border-bottom: 8px solid #133df6;
+        border-bottom: 8px solid #313ba7;
         border-left: 10px solid transparent;
         left: -10px;
     }
