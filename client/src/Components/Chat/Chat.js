@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef, Fragment, useCallback} from 'react';
 import { useParams } from 'react-router-dom';
-import Input from './Input';
+import Input from './ChatInput/ChatInput';
 import Message from './Message/Message';
 import classes from './Chat.module.scss';
 import { io } from 'socket.io-client';

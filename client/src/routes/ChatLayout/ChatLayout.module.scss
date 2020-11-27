@@ -154,6 +154,10 @@
     }
 }
 
+main {
+    display: flex;
+    width: 100%;
+}
 
 @media (prefers-reduced-motion: no-preference) {
 	.Logo {

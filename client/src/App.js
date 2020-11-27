@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import classes from './App.module.scss';
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+// import classes from './App.module.scss';
 import Auth from './routes/Auth/Auth';
 import ChatLayout from './routes/ChatLayout/ChatLayout';
 import axios from 'axios';
@@ -9,7 +9,7 @@ const App = () => {
 	const [username, setUsername] = useState('');
 	const [userId, setUserId] = useState('');
 	const [token, setToken] = useState('');
-	// userId
+
 	const checkAuth = (authUsername, authPassword) => {
 		const credentials = {
 			username: authUsername,
@@ -28,24 +28,15 @@ const App = () => {
 
 	return (
 		<BrowserRouter>
-			{/* <header className={classes.Header}>
-				<img src={logo} className={classes.Logo} alt="logo" />
-				<h1 className={classes.Title}>React Chat App with Socket.io</h1>
-			</header> */}
-			<main className={classes.Main}>
-				{/* Route Control */}
-				<Switch>
-					{/* if not auth - guard */}
-					{	
-						username 
-						? <Route path="/" render={() => <ChatLayout username={username} token={token} userId={userId}/>}/>
-						: <Route path="/" exact  render={() => <Auth onSubmitAction={(authUsername, authPassword) => checkAuth(authUsername, authPassword)}/>}/>
-					}
-					<Redirect from="/" to="/" />
-				</Switch>
-
-			</main>
-			{/* <footer className={classes.Footer}></footer> */}
+			<Switch>
+				{/* if not auth - guard */}
+				{	
+					username 
+					? <Route path="/" render={() => <ChatLayout username={username} token={token} userId={userId}/>}/>
+					: <Route path="/" exact  render={() => <Auth onSubmitAction={(authUsername, authPassword) => checkAuth(authUsername, authPassword)}/>}/>
+				}
+				<Redirect from="/" to="/" />
+			</Switch>
 		</BrowserRouter>
 	)
 }

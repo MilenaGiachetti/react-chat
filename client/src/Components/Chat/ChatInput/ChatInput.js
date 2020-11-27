@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import classes from './Input.module.scss';
+import classes from './ChatInput.module.scss';
 
 const Input = (props) => {
 	const [message, setMessage] = useState('');

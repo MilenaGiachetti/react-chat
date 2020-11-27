@@ -45,7 +45,7 @@ const ChatLayout = (props) => {
     }, [getChats])
 
 	return (
-        <section className={classes.ChatLayout}>
+        <div className={classes.ChatLayout}>
             <header className={classes.Header}>
 				<img src={logo} className={classes.Logo} alt="logo" />
 				{/* <h1 className={classes.Title}>React Chat App with Socket.io</h1> */}
@@ -57,46 +57,47 @@ const ChatLayout = (props) => {
                     </ul>
                 </nav>
 			</header>
+            <main>
+                <div className={classes.Nav}>
+                    <div className={classes.title}>
+                        <h2>Messages</h2>
+                        <button className={classes.search}>
+                            <i className="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <h3>PUBLIC</h3>
+                    <ul>
+                        {chatrooms.map( chat => {
+                            return ( 
+                                <li key={chat.id}>
+                                    <NavLink className={classes.NavLink} activeClassName={classes.active} to={`/chats/${chat.id}`}>
+                                        <img className={classes.chatImage} src="http://placeimg.com/40/40/animals" alt="User"></img>
+                                        <span className={classes.chatContent}>
+                                            <p className={classes.chatTitle}>{chat.name}<span className={classes.chatTime}>03:20</span></p>
+                                            <p className={classes.chatMessage}>Lorem ipsum dolorem amit.</p>
+                                        </span>
+                                    </NavLink>
+                                </li>)
+                        })}
+                    </ul>
+                    <h3>GROUPS</h3>
+                    <div className={classes.emptyChats}>
+                        <p>No chats yet</p>
+                        <i className="fas fa-kiwi-bird">..</i>
+                    </div>
+                    <h3>PERSONAL</h3>
+                    <div className={classes.emptyChats}>
+                        <p>No chats yet</p>
+                        <i className="fas fa-kiwi-bird">..</i>
+                    </div>
 
-            <div className={classes.Nav}>
-                <div className={classes.title}>
-                    <h2>Messages</h2>
-                    <button className={classes.search}>
-                        <i className="fas fa-search"></i>
-                    </button>
+                    <button onClick={addChatHandler} className={classes.addChat}><i className="fas fa-plus"></i></button>
                 </div>
-                <h3>PUBLIC</h3>
-                <ul>
-                    {chatrooms.map( chat => {
-                        return ( 
-                            <li key={chat.id}>
-                                <NavLink className={classes.NavLink} activeClassName={classes.active} to={`/chats/${chat.id}`}>
-                                    <img className={classes.chatImage} src="http://placeimg.com/40/40/animals" alt="User"></img>
-                                    <span className={classes.chatContent}>
-                                        <p className={classes.chatTitle}>{chat.name}<span className={classes.chatTime}>03:20</span></p>
-                                        <p className={classes.chatMessage}>Lorem ipsum dolorem amit.</p>
-                                    </span>
-                                </NavLink>
-                            </li>)
-                    })}
-                </ul>
-                <h3>GROUPS</h3>
-                <div className={classes.emptyChats}>
-                    <p>No chats yet</p>
-                    <i className="fas fa-kiwi-bird">..</i>
+                <div className={classes.ChatContainer}>
+                    <Route path="/chats/:chatId" render={() => <Chat username={props.username} key={window.location.pathname} userId={props.userId} token={props.token}/>}/>
                 </div>
-                <h3>PERSONAL</h3>
-                <div className={classes.emptyChats}>
-                    <p>No chats yet</p>
-                    <i className="fas fa-kiwi-bird">..</i>
-                </div>
-
-                <button onClick={addChatHandler} className={classes.addChat}><i className="fas fa-plus"></i></button>
-            </div>
-            <div className={classes.ChatContainer}>
-                <Route path="/chats/:chatId" render={() => <Chat username={props.username} key={window.location.pathname} userId={props.userId} token={props.token}/>}/>
-            </div>
-        </section>
+            </main>
+        </div>
 	)
 }
 export default ChatLayout;
