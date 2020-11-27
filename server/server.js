@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
 		socket.on("new_chat_message", (msg) => {
 			io.to(chat_name).emit("new_chat_message", msg);
 			let msgJSON = JSON.parse(msg);
-			addMessage(6, msgJSON.message_type, msgJSON.sender_id, msgJSON.content);
+			addMessage(msgJSON.chatroom_id, msgJSON.message_type, msgJSON.sender_id, msgJSON.content);
 			console.log("message: " + msg);
 		});
 	});

@@ -12,12 +12,17 @@ const URL = 'http://127.0.0.1:4001';
 const Chat = (props) => {
 	const [messages, setMessages] = useState([]);
 		
+	// create new websocket connection
+	// leer mas https://www.grapecity.com/blogs/moving-from-react-components-to-react-hooks
+	const socket = useRef(io(URL, {transports: ['websocket']}));
+	const params = useParams();
+
 	const getChatMessages = useCallback(() => {
         const config = {
             headers: { Authorization: `Bearer ${props.token}` }
         };
 
-		axios.get('http://127.0.0.1:4001/messages/6', config)
+		axios.get(`http://127.0.0.1:4001/messages/${params.chatId}`, config)
 			.then(response => {
 				console.log(response.data);
 				let initialMessages = response.data
@@ -25,12 +30,7 @@ const Chat = (props) => {
 			}).catch((error) => {
 				console.log(error);
 			});
-	},[props.token])
-	
-	// create new websocket connection
-	// leer mas https://www.grapecity.com/blogs/moving-from-react-components-to-react-hooks
-	const socket = useRef(io(URL, {transports: ['websocket']}));
-	const params = useParams();
+	},[props.token, params.chatId])
 	
 	useEffect(() => {
 		getChatMessages();
@@ -67,7 +67,8 @@ const Chat = (props) => {
 			// automatically try to reconnect on connection loss ?
 			// socket = useRef(new WebSocket(URL));
 		}
-	}, [params, getChatMessages]);
+		// ADD CALLBACK TO THE USEEFFECT TO CLEAN SUBSCRIPTION TO SOCKET
+	}, [params.chatId, getChatMessages]);
 
 	const addMessage = message => {
 		setMessages(prevMessages => ([message, ...prevMessages]));
@@ -75,7 +76,7 @@ const Chat = (props) => {
 
 	const submitMessage = messageString => {
 		// on submitting the ChatInput form, send the message, add it to the list and reset the input
-		const message = { sender: props.username, content: messageString, sender_id: props.userId, message_type: 'text'};
+		const message = { sender: props.username, chatroom_id: params.chatId, content: messageString, sender_id: props.userId, message_type: 'text'};
 		socket.current.emit('new_chat_message', JSON.stringify(message));
 	}
 

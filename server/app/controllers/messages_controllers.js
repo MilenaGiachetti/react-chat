@@ -71,7 +71,8 @@ exports.findAll = (req,res) => {
     let sql = `SELECT messages.id, messages.chatroom_id, messages.message_type, messages.sender_id, messages.content, messages.sent_at, users.username as sender
         FROM messages 
         INNER JOIN users ON messages.sender_id = users.id
-        WHERE chatroom_id = ?`;
+        WHERE chatroom_id = ?
+        ORDER BY messages.sent_at DESC`;
     sequelize.query(sql, {
         replacements: [req.params.chatroom_id], type:sequelize.QueryTypes.SELECT
     }).then(all_chatrooms => {

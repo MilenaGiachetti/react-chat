@@ -70,7 +70,7 @@ const ChatLayout = (props) => {
                     {chatrooms.map( chat => {
                         return ( 
                             <li key={chat.id}>
-                                <NavLink className={classes.NavLink} activeClassName={classes.active} to={`/chats/${chat.name}`}>
+                                <NavLink className={classes.NavLink} activeClassName={classes.active} to={`/chats/${chat.id}`}>
                                     <img className={classes.chatImage} src="http://placeimg.com/40/40/animals" alt="User"></img>
                                     <span className={classes.chatContent}>
                                         <p className={classes.chatTitle}>{chat.name}<span className={classes.chatTime}>03:20</span></p>
