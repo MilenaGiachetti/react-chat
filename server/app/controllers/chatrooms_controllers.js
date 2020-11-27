@@ -19,8 +19,8 @@ const sendErrorStatus = (res, status, message, code) => {
 };
 // sendErrorStatus(res, status, message, code);
 
-/*---------------------------------------------CHATS--------------------------------------------*/
-/*-----------------ADD A CHAT-----------------*/
+/*---------------------------------------------CHATROOMS--------------------------------------------*/
+/*-----------------ADD A CHATROOM-----------------*/
 exports.addOne = (req,res) => {
     // needed info: creator_id (sent in auth), type, name, description(optional) - json
     let missingInfo = [];
@@ -92,7 +92,7 @@ exports.findAll = (req,res) => {
 }
 
 /*-----------------SEE A CHATROOM-----------------*/
-// if its not a public chatroom check if the user is a participant in it
+// ADD if its not a public chatroom check if the user is a participant in it
 exports.findOne = (req, res) => {
     let sql =  
         `SELECT id, creator_id, type, name, description, created_at, updated_at 

@@ -30,7 +30,8 @@ const Chat = (props) => {
 			const message = JSON.parse(evt);
 			addMessage(message);
 		});
-		
+
+		// socket.current.emit('send_user_id', props.userId);
 		socket.current.emit('join_chat', params.chatId);
 	
 		socket.current.onerror = error => {
@@ -57,7 +58,7 @@ const Chat = (props) => {
 
 	const submitMessage = messageString => {
 		// on submitting the ChatInput form, send the message, add it to the list and reset the input
-		const message = { sender: props.username, message: messageString };
+		const message = { sender: props.username, content: messageString, sender_id: props.userId, message_type: 'text'};
 		socket.current.emit('new_chat_message', JSON.stringify(message));
 	}
 
@@ -67,7 +68,7 @@ const Chat = (props) => {
 				{messages.map((message, index) =>
 					<Message
 						key={index}
-						message={message.message}
+						message={message.content}
 						sender={message.sender}
 						username={props.username}
 					/>

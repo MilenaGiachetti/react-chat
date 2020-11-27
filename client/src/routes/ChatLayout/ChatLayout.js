@@ -65,7 +65,7 @@ const ChatLayout = (props) => {
                         <i className="fas fa-search"></i>
                     </button>
                 </div>
-                <h3>Public Chats</h3>
+                <h3>PUBLIC</h3>
                 <ul>
                     {chatrooms.map( chat => {
                         return ( 
@@ -80,12 +80,12 @@ const ChatLayout = (props) => {
                             </li>)
                     })}
                 </ul>
-                <h3>Group Chats</h3>
+                <h3>GROUPS</h3>
                 <div className={classes.emptyChats}>
                     <p>No chats yet</p>
                     <i className="fas fa-kiwi-bird">..</i>
                 </div>
-                <h3>Private Chats</h3>
+                <h3>PERSONAL</h3>
                 <div className={classes.emptyChats}>
                     <p>No chats yet</p>
                     <i className="fas fa-kiwi-bird">..</i>
@@ -94,7 +94,7 @@ const ChatLayout = (props) => {
                 <button onClick={addChatHandler} className={classes.addChat}><i className="fas fa-plus"></i></button>
             </div>
             <div className={classes.ChatContainer}>
-                <Route path="/chats/:chatId" render={() => <Chat username={props.username} key={window.location.pathname}/>}/>
+                <Route path="/chats/:chatId" render={() => <Chat username={props.username} key={window.location.pathname} userId={props.userId}/>}/>
             </div>
         </section>
 	)

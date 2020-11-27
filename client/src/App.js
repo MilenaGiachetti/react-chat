@@ -7,8 +7,9 @@ import axios from 'axios';
 
 const App = () => {
 	const [username, setUsername] = useState('');
+	const [userId, setUserId] = useState('');
 	const [token, setToken] = useState('');
-
+	// userId
 	const checkAuth = (authUsername, authPassword) => {
 		const credentials = {
 			username: authUsername,
@@ -16,6 +17,7 @@ const App = () => {
 		};
 		axios.post('http://127.0.0.1:4001/users/login', credentials)
 			.then(response => {
+				setUserId(response.data.user_id);
 				console.log(response.data.token);
 				setToken(response.data.token);
 				setUsername(authUsername);
@@ -36,7 +38,7 @@ const App = () => {
 					{/* if not auth - guard */}
 					{	
 						username 
-						? <Route path="/" render={() => <ChatLayout username={username} token={token}/>}/>
+						? <Route path="/" render={() => <ChatLayout username={username} token={token} userId={userId}/>}/>
 						: <Route path="/" exact  render={() => <Auth onSubmitAction={(authUsername, authPassword) => checkAuth(authUsername, authPassword)}/>}/>
 					}
 					<Redirect from="/" to="/" />
