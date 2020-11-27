@@ -94,7 +94,7 @@ const ChatLayout = (props) => {
                 <button onClick={addChatHandler} className={classes.addChat}><i className="fas fa-plus"></i></button>
             </div>
             <div className={classes.ChatContainer}>
-                <Route path="/chats/:chatId" render={() => <Chat username={props.username} key={window.location.pathname} userId={props.userId}/>}/>
+                <Route path="/chats/:chatId" render={() => <Chat username={props.username} key={window.location.pathname} userId={props.userId} token={props.token}/>}/>
             </div>
         </section>
 	)

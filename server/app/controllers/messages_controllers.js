@@ -68,8 +68,9 @@ exports.addOne = (req,res) => {
 
 /*-----------------SEE ALL MESSAGE BY CHATROOM-----------------*/
 exports.findAll = (req,res) => {
-    let sql = `SELECT id, chatroom_id, message_type, sender_id, content, sent_at 
+    let sql = `SELECT messages.id, messages.chatroom_id, messages.message_type, messages.sender_id, messages.content, messages.sent_at, users.username as sender
         FROM messages 
+        INNER JOIN users ON messages.sender_id = users.id
         WHERE chatroom_id = ?`;
     sequelize.query(sql, {
         replacements: [req.params.chatroom_id], type:sequelize.QueryTypes.SELECT

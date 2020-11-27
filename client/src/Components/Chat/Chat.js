@@ -1,15 +1,31 @@
-import React, {useEffect, useState, useRef, Fragment} from 'react';
+import React, {useEffect, useState, useRef, Fragment, useCallback} from 'react';
 import { useParams } from 'react-router-dom';
 import Input from './Input';
 import Message from './Message/Message';
 import classes from './Chat.module.scss';
 import { io } from 'socket.io-client';
+import axios from 'axios';
+
 
 const URL = 'http://127.0.0.1:4001';
 
 const Chat = (props) => {
 	const [messages, setMessages] = useState([]);
 		
+	const getChatMessages = useCallback(() => {
+        const config = {
+            headers: { Authorization: `Bearer ${props.token}` }
+        };
+
+		axios.get('http://127.0.0.1:4001/messages/6', config)
+			.then(response => {
+				console.log(response.data);
+				let initialMessages = response.data
+				setMessages(prevMessages => ([...initialMessages]));
+			}).catch((error) => {
+				console.log(error);
+			});
+	},[props.token])
 	
 	// create new websocket connection
 	// leer mas https://www.grapecity.com/blogs/moving-from-react-components-to-react-hooks
@@ -17,11 +33,12 @@ const Chat = (props) => {
 	const params = useParams();
 	
 	useEffect(() => {
+		getChatMessages();
+
 		socket.current.onopen = () => {
 			// on connecting, do nothing but log it to the console
 			console.log('connected');
 		}
-
 		
 		// Listens for incoming messages
 		socket.current.on('new_chat_message', (evt) => {
@@ -50,7 +67,7 @@ const Chat = (props) => {
 			// automatically try to reconnect on connection loss ?
 			// socket = useRef(new WebSocket(URL));
 		}
-	}, [params]);
+	}, [params, getChatMessages]);
 
 	const addMessage = message => {
 		setMessages(prevMessages => ([message, ...prevMessages]));
