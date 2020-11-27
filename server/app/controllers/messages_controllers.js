@@ -68,14 +68,14 @@ exports.addOne = (req,res) => {
 
 /*-----------------SEE ALL MESSAGE BY CHATROOM-----------------*/
 exports.findAll = (req,res) => {
-    let sql = `SELECT id, creator_id, type, name, description, created_at, updated_at 
-        FROM chatrooms 
-        ${req.params.type === undefined ? `` : `WHERE type = ?`}`;
+    let sql = `SELECT id, chatroom_id, message_type, sender_id, content, sent_at 
+        FROM messages 
+        WHERE chatroom_id = ?`;
     sequelize.query(sql, {
-        replacements: [req.params.type], type:sequelize.QueryTypes.SELECT
+        replacements: [req.params.chatroom_id], type:sequelize.QueryTypes.SELECT
     }).then(all_chatrooms => {
         if (all_chatrooms.length === 0) {
-            sendErrorStatus(res, 404, "Database doesn't have any chatrooms", "NOT_EXIST");
+            sendErrorStatus(res, 404, "Database doesn't have any message for this chatroom", "NOT_EXIST");
         } else {
             res.status(200).json(all_chatrooms);
         }
