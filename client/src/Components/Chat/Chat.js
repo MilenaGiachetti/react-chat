@@ -26,7 +26,7 @@ const Chat = (props) => {
 			.then(response => {
 				console.log(response.data);
 				let initialMessages = response.data
-				setMessages(prevMessages => ([...initialMessages]));
+				setMessages([...initialMessages]);
 			}).catch((error) => {
 				console.log(error);
 			});
@@ -39,6 +39,9 @@ const Chat = (props) => {
 			// on connecting, do nothing but log it to the console
 			console.log('connected');
 		}
+
+		// socket.current.emit('send_user_id', props.userId);
+		socket.current.emit('join_chat', params.chatId);
 		
 		// Listens for incoming messages
 		socket.current.on('new_chat_message', (evt) => {
@@ -48,8 +51,6 @@ const Chat = (props) => {
 			addMessage(message);
 		});
 
-		// socket.current.emit('send_user_id', props.userId);
-		socket.current.emit('join_chat', params.chatId);
 	
 		socket.current.onerror = error => {
 			console.log(error);
@@ -67,7 +68,12 @@ const Chat = (props) => {
 			// automatically try to reconnect on connection loss ?
 			// socket = useRef(new WebSocket(URL));
 		}
+
+		let socketRef = socket.current;
 		// ADD CALLBACK TO THE USEEFFECT TO CLEAN SUBSCRIPTION TO SOCKET
+		return () => {
+			socketRef.emit('leave_chat', params.chatId);
+		};
 	}, [params.chatId, getChatMessages]);
 
 	const addMessage = message => {

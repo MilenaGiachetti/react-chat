@@ -21,6 +21,11 @@ io.on("connection", (socket) => {
 			console.log("message: " + msg);
 		});
 	});
+	socket.on("leave_chat", (chat_name) =>{
+		console.log("left chat: " + chat_name);
+		socket.leave(chat_name);
+		// io.to(chat_name).emit(`user ${socket.id} has left the room`);
+	});
 	socket.on("disconnect", () => {
 		console.log("user disconnected");
 	});
