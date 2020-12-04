@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 // import classes from './App.module.scss';
 import Auth from './routes/Auth/Auth';
-import ChatLayout from './routes/ChatLayout/ChatLayout';
+import Layout from './routes/Layout/Layout';
 import axios from 'axios';
 
 const App = () => {
@@ -32,7 +32,7 @@ const App = () => {
 				{/* if not auth - guard */}
 				{	
 					username 
-					? <Route path="/" render={() => <ChatLayout username={username} token={token} userId={userId}/>}/>
+					? <Route path="/" render={() => <Layout username={username} token={token} userId={userId}/>}/>
 					: <Route path="/" exact  render={() => <Auth onSubmitAction={(authUsername, authPassword) => checkAuth(authUsername, authPassword)}/>}/>
 				}
 				<Redirect from="/" to="/" />

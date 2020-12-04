@@ -1,8 +1,8 @@
 import {useEffect, useCallback, useState} from 'react';
-import classes from './ChatLayout.module.scss';
+import classes from './Layout.module.scss';
 import logo from '../../logo.svg';
 import {NavLink, Route} from 'react-router-dom';
-import Chat from '../../Components/Chat/Chat';
+import Chat from '../../Components/Chat/ChatContainer';
 import axios from 'axios';
 
 
@@ -45,7 +45,7 @@ const ChatLayout = (props) => {
     }, [getChats])
 
 	return (
-        <div className={classes.ChatLayout}>
+        <div className={classes.Layout}>
             <header className={classes.Header}>
 				<img src={logo} className={classes.Logo} alt="logo" />
 				{/* <h1 className={classes.Title}>React Chat App with Socket.io</h1> */}
