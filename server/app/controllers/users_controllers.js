@@ -312,10 +312,10 @@ exports.login = (req,res) => {
     if (missingInfo.length <= 1 && missingInfo[0] !== "password") {
         const jwtPass = reqs.jwtPass;
         let sql =  
-            `SELECT * FROM users 
-            WHERE (username = :username OR email = :email)`;
+            `SELECT * FROM users WHERE 
+            ${req.body.username !== undefined ? "username = :username" : "email = :email"}`;
         sequelize.query(sql, {
-            replacements: {username : req.body.username , email: req.body.username}, type:sequelize.QueryTypes.SELECT
+            replacements: {username : req.body.username , email: req.body.email}, type:sequelize.QueryTypes.SELECT
         }).then(result => {
             if(result.length !== 0){
                 async function checkPass(){
