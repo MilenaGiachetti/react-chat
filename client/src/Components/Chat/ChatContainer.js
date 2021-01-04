@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef, Fragment, useCallback} from 'react';
 import { useParams } from 'react-router-dom';
 import MessageInputGroup from './MessageInputGroup/MessageInputGroup';
 import Message from './Message/Message';
-import classes from './Chat.module.scss';
+import classes from './ChatContainer.module.scss';
 import { io } from 'socket.io-client';
 import axios from 'axios';
 
