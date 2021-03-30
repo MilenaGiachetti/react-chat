@@ -1,7 +1,7 @@
 //@import '../../assets/variables';
 
 .Header {
-    max-height: 120px;
+    max-height: 12rem;
     display: flex;
     background-color: #000;
     align-items: center;
@@ -20,8 +20,8 @@ h1 {
 }
 
 .Logo {
-    margin: 10px;
-    height: 60px;
+    margin: 1rem;
+    height: 6rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -40,7 +40,7 @@ h1 {
 }
 
 .Footer {
-	height: 40px;
+	height: 4rem;
 	position: relative;
 	z-index: 2;
 	// background-color: red;

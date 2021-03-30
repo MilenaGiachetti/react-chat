@@ -1,14 +1,14 @@
 .Form {
     width: 100%;
-    margin: 10px 0;
+    margin: 1rem 0;
 }
 .Input {
-    width: calc(100% - 52px);
-    margin-right: 10px;
-    min-height: 40px;
-    border-radius: 20px;
+    width: calc(100% - 5.2rem);
+    margin-right: 1rem;
+    min-height: 4rem;
+    border-radius: 2rem;
     border: 2px solid #eeeef6;
-    padding: 0 20px;
+    padding: 0 2rem;
     &:active, &:focus {
         outline: none;
         border: 2px solid #313ba7;
@@ -16,21 +16,21 @@
 }
 .Button {
     all: unset;
-    height: 42px;
-    width: 42px;
+    height: 4.2rem;
+    width: 4.2rem;
     border-radius: 50%;
     background-color: #eeeef6;
-    min-height: 40px;
+    min-height: 4rem;
     color: #000;
     transition: all 0.3s ease-out;
     i {
-        padding-left: 12px;
-        padding-bottom: 4px;
+        padding-left: 1.2rem;
+        padding-bottom: 0.4rem;
     }
     &:hover {
         box-shadow: 0 0 3px #313ba7;
         background-color: #313ba7;
-        min-height: 40px;
+        min-height: 4rem;
         color: #fff;    
     }
 }
