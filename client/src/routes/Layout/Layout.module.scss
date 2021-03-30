@@ -50,10 +50,13 @@
                     text-decoration: none;
                     padding: 20px 15px;
                     &:hover,  &.active {
-                        background: rgba(217, 4, 41, 0.2);
-                        background: linear-gradient(90deg, rgba(217,4,41,0.2) 0%, rgba(217,4,41,0) 100%);
-                        border-left: 2px solid #D90429;    
+                        background: rgba(49, 59, 167, 0.2);
+                        background: linear-gradient(90deg, rgba(49, 59, 167, 0.2) 0%, rgba(217,4,41,0) 100%);
                         padding-left: 13px;
+                        border-left: 2px solid rgba(49, 59, 167, 0.2);    
+                    }
+                    &.active {
+                        border-left: 2px solid #D90429;    
                     }
                     .chatImage {
                         border-radius: 50%;

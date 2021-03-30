@@ -8,6 +8,9 @@ var io = require("socket.io")(http);
 
 const messages = require("./app/controllers/messages_controllers");
 
+// let rooms = [1, 2, 6];
+// socket.join(rooms);
+
 // listen to socket connection
 io.on("connection", (socket) => {
 	console.log("a user connected");

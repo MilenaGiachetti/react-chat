@@ -65,7 +65,7 @@ const ChatLayout = (props) => {
                             <i className="fas fa-search"></i>
                         </button>
                     </div>
-                    <h3>PUBLIC</h3>
+                    <h3>PUBLIC CHATS</h3>
                     <ul>
                         {chatrooms.map( chat => {
                             return ( 
@@ -80,7 +80,7 @@ const ChatLayout = (props) => {
                                 </li>)
                         })}
                     </ul>
-                    <h3>GROUPS</h3>
+                    {/* <h3>GROUPS</h3>
                     <div className={classes.emptyChats}>
                         <p>No chats yet</p>
                         <i className="fas fa-kiwi-bird">..</i>
@@ -89,7 +89,7 @@ const ChatLayout = (props) => {
                     <div className={classes.emptyChats}>
                         <p>No chats yet</p>
                         <i className="fas fa-kiwi-bird">..</i>
-                    </div>
+                    </div> */}
 
                     <button onClick={addChatHandler} className={classes.addChat}><i className="fas fa-plus"></i></button>
                 </div>
