@@ -33,8 +33,9 @@ const App = () => {
 				{	
 					username 
 					? <Route path="/" render={() => <Layout username={username} token={token} userId={userId}/>}/>
-					: <Route path="/" exact  render={() => <Auth onSubmitAction={(authUsername, authPassword) => checkAuth(authUsername, authPassword)}/>}/>
+					: <Route path="/" exact  render={() => <Auth mode="signIn" onSubmitAction={(authUsername, authPassword) => checkAuth(authUsername, authPassword)}/>}/>
 				}
+				<Route path="/register" exact  render={() => <Auth mode="register" onSubmitAction={(authUsername, authPassword) => checkAuth(authUsername, authPassword)}/>}/>
 				<Redirect from="/" to="/" />
 			</Switch>
 		</BrowserRouter>

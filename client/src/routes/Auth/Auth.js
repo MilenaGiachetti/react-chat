@@ -1,5 +1,6 @@
 import classes from './Auth.module.scss';
 import SignIn from '../../Components/SignIn/SignIn';
+import Register from '../../Components/SignIn/Register';
 import logo from '../../logo.svg';
 import {Fragment} from 'react';
 
@@ -12,7 +13,11 @@ const Auth = (props) => {
                 <h1 className={classes.Title}>React Chat App with Socket.io</h1>
             </header>
             <main className={classes.Auth}>
-                <SignIn onSubmitAction={(authUsername, authPassword) => props.onSubmitAction(authUsername, authPassword)}/>
+                {	
+					props.mode === "signIn" 
+					? <SignIn onSubmitAction={(authUsername, authPassword) => props.onSubmitAction(authUsername, authPassword)}/>
+                    : <Register onSubmitAction={(authUsername, authPassword) => props.onSubmitAction(authUsername, authPassword)}/>
+                }       
             </main>
             <footer className={classes.Footer}></footer>
         </Fragment>

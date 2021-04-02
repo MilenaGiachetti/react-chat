@@ -31,7 +31,7 @@ const SignIn = (props) => {
 				/>
 				<input type="submit" value='Enter' />
 			</label>
-			<a>Don't have an account? Sign up</a>
+			<a href="/register">Don't have an account? Sign up</a>
 		</form>
 	)
 }
