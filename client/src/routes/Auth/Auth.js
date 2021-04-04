@@ -16,7 +16,7 @@ const Auth = (props) => {
                 {	
 					props.mode === "signIn" 
 					? <SignIn onSubmitAction={(authUsername, authPassword) => props.onSubmitAction(authUsername, authPassword)}/>
-                    : <Register onSubmitAction={(authUsername, authPassword) => props.onSubmitAction(authUsername, authPassword)}/>
+                    : <Register onSubmitAction={(authUsername, authEmail, authPassword) => props.onSubmitAction(authUsername, authEmail, authPassword)}/>
                 }       
             </main>
             <footer className={classes.Footer}></footer>

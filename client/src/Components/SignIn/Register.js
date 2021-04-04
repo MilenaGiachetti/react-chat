@@ -3,6 +3,7 @@ import classes from './SignIn.module.scss';
 
 const Register = (props) => {
 	const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [repeatPassword, setRepeatPassword] = useState('');
 
@@ -11,7 +12,7 @@ const Register = (props) => {
 			action="."
 			onSubmit={e => {
                 e.preventDefault();
-                props.onSubmitAction(username, password)
+                props.onSubmitAction(username, email, password)
 			}}
 			className={classes.SignInCtn}
 		>
@@ -27,8 +28,8 @@ const Register = (props) => {
                 <input
                     type="email"
                     placeholder={'Enter email'}
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
                 />
             </label>
             <label>Password
