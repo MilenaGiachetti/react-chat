@@ -1,22 +1,38 @@
 @import './assets/variables';
 
+// Normalize
 *, *::before, *::after  {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	border: 0;
+	background-color: unset;
 }
 
+button:active, button:focus {
+	outline: none;
+	border: none;
+}
+
+// Theme variables
 html {
 	font-size: 62.5%;
-	--backgroundColor: #fff;
+	--backgroundColor: #FFFFFF;
+	--color: #050A10;
+
 }
 
 html[data-theme='dark'] {
-	--backgroundColor: #232323;
+	--backgroundColor: #050A10;
+	--color: #FFFFFF;
+
 }
 
+
+// Body
 body {
 	background-color: var(--backgroundColor);
+	color: var(--color);
 	font-size: 1.6rem;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;

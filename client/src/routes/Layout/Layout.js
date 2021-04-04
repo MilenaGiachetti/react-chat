@@ -8,6 +8,7 @@ import axios from 'axios';
 
 const ChatLayout = (props) => {
     const [chatrooms, setChatrooms] = useState([]);
+    const [theme, setTheme] = useState("light");
 
     const getChats = useCallback(() => {
         const config = {
@@ -39,10 +40,11 @@ const ChatLayout = (props) => {
 				console.log(error);
 			});
     }
-    const changeTheme = (theme) => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        
-        alert('Theme updated...');
+
+    const toggleTheme = () => {
+        var newTheme = theme === "dark" ? "light" : "dark";
+        setTheme(newTheme);
+        document.documentElement.setAttribute('data-theme', theme)
     }
 
     useEffect(() => {
@@ -58,7 +60,7 @@ const ChatLayout = (props) => {
                     <ul>
                         <li><i className="fas fa-comment-alt"></i></li>
                         <li><i className="fas fa-cog"></i></li>
-                        <li><button type="button" onClick={() => changeTheme("dark")}><i className="fas fa-moon"></i></button></li>
+                        <li><button type="button" onClick={() => toggleTheme()}>{theme === "dark" ? <i className="fas fa-moon"  aria-hidden="true"></i> : <i className="fas fa-sun"  aria-hidden="true"></i>}</button></li>
                     </ul>
                 </nav>
 			</header>
