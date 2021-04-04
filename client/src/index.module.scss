@@ -18,12 +18,14 @@ button:active, button:focus {
 html {
 	font-size: 62.5%;
 	--backgroundColor: #FFFFFF;
+	--secondaryBackgroundColor: #e1e1e1;
 	--color: #050A10;
 
 }
 
 html[data-theme='dark'] {
 	--backgroundColor: #050A10;
+	--secondaryBackgroundColor: #001836;
 	--color: #FFFFFF;
 
 }

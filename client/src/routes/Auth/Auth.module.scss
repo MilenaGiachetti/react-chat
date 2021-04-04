@@ -1,9 +1,9 @@
-//@import '../../assets/variables';
+@import '../../assets/variables';
 
 .Header {
     max-height: 12rem;
     display: flex;
-    background-color: #000;
+    background-color: $primary_dark_color;
     align-items: center;
 }
 
@@ -16,7 +16,7 @@
 }
 
 h1 {
-    color: #fff;
+    color: $primary_light_color;
 }
 
 .Logo {

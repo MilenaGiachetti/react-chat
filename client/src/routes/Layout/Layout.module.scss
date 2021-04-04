@@ -4,6 +4,7 @@
     width: 100vw;
     height: 100vh;
     display: flex;
+    background-color: var(--secondaryBackgroundColor);
     .Nav {
         height: 100vh;
         overflow-y: auto;
@@ -20,8 +21,8 @@
                 height: 3rem;
                 width: 3rem;
                 border-radius: 50%;
-                background-color: #e1e1e1;
-                color: #b5b5b5;
+                background-color: $primary_light_color;
+                color: $primary_dark_color;
                 text-align: center;
                 margin-left: auto;
             }
@@ -32,7 +33,6 @@
         .emptyChats {
             margin: 0.5rem 2rem 2.5rem 1.5rem;
             display: flex;
-            color: #9f9f9f;
             i {
                 margin-left: 2rem;
             }
@@ -55,7 +55,7 @@
                         border-left: 2px solid rgba(49, 59, 167, 0.2);    
                     }
                     &.active {
-                        border-left: 2px solid #D90429;    
+                        border-left: 2px solid $accent_color;    
                     }
                     .chatImage {
                         border-radius: 50%;
@@ -78,7 +78,7 @@
                                 font-size: 1.2rem;
                                 text-align: right;
                                 margin-left: auto;
-                                color: #313ba7;
+                                color: $secondary_accent_color;
                             }
                         }
                         .chatMessage {
@@ -96,20 +96,21 @@
             height: 4rem;
             width: 4rem;
             border-radius: 50%;
-            background-color: #D90429;
+            background-color: $accent_color;
             min-height: 4rem;
-            color: #fff;
+            color: $primary_light_color;
             text-align: center;
             position: absolute;
             bottom: 7rem;
             right: 2rem;
             transition: all 0.3s ease-out;
             &:hover {
-                box-shadow: 0 0 3px #D90429;
+                box-shadow: 0 0 3px $accent_color;
             }
         }
     }
     .ChatContainer {
+        background-color: var(--backgroundColor);
         padding: 2rem;
         width: 100%;
         display: flex;
@@ -129,7 +130,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-	background-color: #313ba7;
+	background-color: $secondary_accent_color;
     font-size: 1.2rem;
     border-radius: 2rem;
 	color: $primary_dark_color;
@@ -146,7 +147,7 @@
                 padding: 1rem;
                 font-size: 2rem;
                 border-radius: 1rem;
-                color: #fff;
+                color: $primary_light_color;
                 &:hover{
                     background-color: rgba(255, 255, 255, 0.1);
                 }

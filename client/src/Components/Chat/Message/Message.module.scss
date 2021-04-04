@@ -6,7 +6,7 @@
     padding: 1rem 2rem;
     text-align: left;
     line-height: 1.2;
-    color: #fff;
+    color: $primary_light_color;
     max-width: 60%;
     &:before {
         content: '';
@@ -18,23 +18,23 @@
 }
 
 .user {
-    background-color: #eeeef6;
+    background-color: $primary_light_color;
     border-radius: 1.5rem 1.5rem 0 1.5rem; 
     margin: 1rem 2rem 1rem auto;
-    color: #000;
+    color: $primary_dark_color;
     &:before {
-        border-bottom: 0.8rem solid #eeeef6;
+        border-bottom: 0.8rem solid $primary_light_color;
         border-right: 1rem solid transparent;
         right: -1rem;
     }
 }
 
 .others {
-    background-color: #313ba7;
+    background-color: $secondary_accent_color;
     border-radius: 1.5rem 1.5rem 1.5rem 0; 
     margin: 1rem auto 1rem 2rem;
     &:before {
-        border-bottom: 0.8rem solid #313ba7;
+        border-bottom: 0.8rem solid $secondary_accent_color;
         border-left: 1rem solid transparent;
         left: -1rem;
     }
