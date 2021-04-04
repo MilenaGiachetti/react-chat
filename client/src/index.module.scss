@@ -8,15 +8,22 @@
 
 html {
 	font-size: 62.5%;
+	--backgroundColor: #fff;
+}
+
+html[data-theme='dark'] {
+	--backgroundColor: #232323;
 }
 
 body {
-	overflow-x: hidden;
-	margin: 0;
+	background-color: var(--backgroundColor);
 	font-size: 1.6rem;
-	font-family: 'Source Sans Pro', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	font-family: 'Source Sans Pro', sans-serif;
+	margin: 0;
+	min-height: 100vh;
+	overflow-x: hidden;
 }
 
 code {

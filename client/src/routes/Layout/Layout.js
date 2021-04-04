@@ -39,6 +39,11 @@ const ChatLayout = (props) => {
 				console.log(error);
 			});
     }
+    const changeTheme = (theme) => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        
+        alert('Theme updated...');
+    }
 
     useEffect(() => {
         getChats();
@@ -53,7 +58,7 @@ const ChatLayout = (props) => {
                     <ul>
                         <li><i className="fas fa-comment-alt"></i></li>
                         <li><i className="fas fa-cog"></i></li>
-                        <li><i className="fas fa-moon"></i></li>
+                        <li><button type="button" onClick={() => changeTheme("dark")}><i className="fas fa-moon"></i></button></li>
                     </ul>
                 </nav>
 			</header>
