@@ -94,7 +94,8 @@ const Chat = (props) => {
 						key={index}
 						message={message.content}
 						sender={message.sender}
-						username={props.username}
+						userId={props.userId}
+						senderId={message.sender_id}
 					/>
 				)}
 			</div>

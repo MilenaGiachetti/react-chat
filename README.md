@@ -16,6 +16,9 @@ Frontend build with React.
 ### About the Server
 Backend build with Node.js, Express, MySQL & Socket.io
 
+## Warning
+As this project is a demo, information may be periodically removed from the database.
+
 ## Run locally
 
 ### 1. Clone repo
