@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef, Fragment, useCallback} from 'react';
 import { useParams } from 'react-router-dom';
 import MessageInputGroup from './MessageInputGroup/MessageInputGroup';
 import Message from './Message/Message';
+import { connect } from 'react-redux';
 import classes from './ChatContainer.module.scss';
 import { io } from 'socket.io-client';
 import axios from 'axios';
@@ -21,7 +22,6 @@ const Chat = (props) => {
         const config = {
             headers: { Authorization: `Bearer ${props.token}` }
         };
-
 		axios.get(`http://127.0.0.1:4001/messages/${params.chatId}`, config)
 			.then(response => {
 				console.log(response.data);
@@ -108,4 +108,13 @@ const Chat = (props) => {
 	)
 }
 
-export default Chat;
+const mapStateToProps = state => {
+	return {
+		token: state.token,
+        userId: state.userId,
+        username: state.username
+
+	};
+};
+
+export default connect(mapStateToProps)(Chat);

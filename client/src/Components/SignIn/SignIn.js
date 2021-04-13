@@ -1,17 +1,21 @@
 import React, {useState} from 'react';
 import classes from './SignIn.module.scss';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
 const SignIn = (props) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 
+	const submitHandler = (e) => {
+		e.preventDefault();
+		props.onAuth({username: username, password: password}, false)
+	}
+
 	return (
 		<form
 			action="."
-			onSubmit={e => {
-                e.preventDefault();
-                props.onSubmitAction(username, password)
-			}}
+			onSubmit={submitHandler}
 			className={classes.SignInCtn}
 		>
 			<label>Username or email
@@ -35,4 +39,11 @@ const SignIn = (props) => {
 		</form>
 	)
 }
-export default SignIn;
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onAuth: (userData, isSignUp) => dispatch(actions.auth(userData, isSignUp))
+	}
+};
+
+export default connect(null, mapDispatchToProps)(SignIn);

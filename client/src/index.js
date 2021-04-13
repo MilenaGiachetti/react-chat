@@ -2,12 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.module.scss';
 import App from './App';
+import {BrowserRouter} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './store/reducers/auth';
+import thunk from 'redux-thunk';
+
+// added redux devtools
+const composeEnhancers = process.env.NODE_ENV === "development" ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__  : null || compose;
+
+// create redux store
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
+	<Provider store={store}> 
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	</Provider>,
 	document.getElementById('root')
 );
 

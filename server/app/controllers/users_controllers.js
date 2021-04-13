@@ -324,10 +324,11 @@ exports.login = (req,res) => {
                     if (match){
                         /*token created and sent when correct data is given*/
                         let user_id = result[0].id;
+                        let username = result[0].username;
                         const token = reqs.jwt.sign({
                             user_id,
                         }, jwtPass);
-                        res.status(200).json({token: token, user_id: user_id});
+                        res.status(200).json({token: token, user_id: user_id, username: username});
                     } else {
                         sendErrorStatus(res, 401, "Incorrect user credentials", "INCORRECT_DATA");
                     }

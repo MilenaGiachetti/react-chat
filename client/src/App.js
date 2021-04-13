@@ -1,64 +1,46 @@
-import React, {useState} from 'react';
-import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import React, {Fragment} from 'react';
+import {Route, Switch, Redirect} from 'react-router-dom';
 // import classes from './App.module.scss';
+import { connect } from 'react-redux';
 import Auth from './routes/Auth/Auth';
 import Layout from './routes/Layout/Layout';
-import axios from 'axios';
+import * as actionsTypes from './store/actions/index';
 
-const App = () => {
-	const [username, setUsername] = useState('');
-	const [userId, setUserId] = useState('');
-	const [token, setToken] = useState('');
-
-	// Login
-	const checkAuth = (authUsername, authPassword) => {
-		const credentials = {
-			username: authUsername,
-			password: authPassword
-		};
-		axios.post('http://127.0.0.1:4001/users/login', credentials)
-			.then(response => {
-				setUserId(response.data.user_id);
-				console.log(response.data.token);
-				setToken(response.data.token);
-				setUsername(authUsername);
-			}).catch((error) => {
-				console.log(error);
-			});
-	}
-
-	// Register
-	const register = (authUsername, authEmail, authPassword) => {
-		const registrationData = {
-			username   : authUsername,
-			email      : authEmail,
-			password   : authPassword
-		}
-		console.log(registrationData);
-		axios.post('http://127.0.0.1:4001/users/', registrationData)
-			.then(response => {
-				// login user after registration
-				console.log(response);
-				checkAuth(authUsername, authPassword);
-			}).catch((error) => {
-				console.log(error);
-			});
-	}
+const App = (props) => {
+	let routes = (
+		<Switch>
+			<Route path="/" exact  render={() => <Auth mode="signIn"/>}/>
+			<Route path="/register" exact  render={() => <Auth mode="register"/>}/>
+			<Redirect to="/" />
+		</Switch>
+	);
+	/* if not auth - guard */
+	if(props.isAuthenticated){
+		routes = (
+			<Switch>
+				<Route path="/" render={() => <Layout/>}/>
+				<Redirect to="/" />
+			</Switch>
+		);
+	};
 
 	return (
-		<BrowserRouter>
-			<Switch>
-				{/* if not auth - guard */}
-				{	
-					username 
-					? <Route path="/" render={() => <Layout username={username} token={token} userId={userId}/>}/>
-					: <Route path="/" exact  render={() => <Auth mode="signIn" onSubmitAction={(authUsername, authPassword) => checkAuth(authUsername, authPassword)}/>}/>
-				}
-				<Route path="/register" exact  render={() => <Auth mode="register" onSubmitAction={(authUsername, authEmail, authPassword) => register(authUsername, authEmail, authPassword)}/>}/>
-				<Redirect from="/" to="/" />
-			</Switch>
-		</BrowserRouter>
+		<Fragment>
+			{routes}
+		</Fragment>
 	)
 }
 
-export default App;
+const mapStateToProps = state => {
+	return {
+		isAuthenticated: state.token !== null
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onTryAutoSignup: () => dispatch(actionsTypes.authCheckState())
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

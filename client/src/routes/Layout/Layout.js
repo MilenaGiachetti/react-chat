@@ -1,6 +1,7 @@
 import {useEffect, useCallback, useState} from 'react';
 import classes from './Layout.module.scss';
 import logo from '../../logo.svg';
+import { connect } from 'react-redux';
 import {NavLink, Route} from 'react-router-dom';
 import Chat from '../../Components/Chat/ChatContainer';
 import axios from 'axios';
@@ -9,7 +10,6 @@ import axios from 'axios';
 const ChatLayout = (props) => {
     const [chatrooms, setChatrooms] = useState([]);
     const [theme, setTheme] = useState("light");
-
     const getChats = useCallback(() => {
         const config = {
             headers: { Authorization: `Bearer ${props.token}` }
@@ -78,7 +78,7 @@ const ChatLayout = (props) => {
                             return ( 
                                 <li key={chat.id}>
                                     <NavLink className={classes.NavLink} activeClassName={classes.active} to={`/chats/${chat.id}`}>
-                                        <img className={classes.chatImage} src="http://placeimg.com/40/40/animals" alt="User"></img>
+                                        <img src={logo} className={classes.chatImage} alt="User" />
                                         <span className={classes.chatContent}>
                                             <p className={classes.chatTitle}>{chat.name}<span className={classes.chatTime}>03:20</span></p>
                                             <p className={classes.chatMessage}>Lorem ipsum dolorem amit.</p>
@@ -107,4 +107,13 @@ const ChatLayout = (props) => {
         </div>
 	)
 }
-export default ChatLayout;
+
+const mapStateToProps = state => {
+	return {
+		token: state.token,
+        userId: state.userId,
+        username: state.username
+	};
+};
+
+export default connect(mapStateToProps)(ChatLayout);

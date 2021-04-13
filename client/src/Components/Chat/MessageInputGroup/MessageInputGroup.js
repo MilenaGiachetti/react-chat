@@ -19,6 +19,7 @@ const Input = (props) => {
 			<input
 				className={classes.Input}
 				type="text"
+				required
 				placeholder={'Enter message...'}
 				value={message}
 				onChange={e => setMessage( e.target.value )}
