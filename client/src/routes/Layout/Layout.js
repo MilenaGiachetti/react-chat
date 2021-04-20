@@ -42,9 +42,9 @@ const ChatLayout = (props) => {
     }
 
     const toggleTheme = () => {
-        var newTheme = theme === "dark" ? "light" : "dark";
+        var newTheme = (theme === "dark" ? "light" : "dark");
         setTheme(newTheme);
-        document.documentElement.setAttribute('data-theme', theme)
+        document.documentElement.setAttribute('data-theme', newTheme)
     }
 
     useEffect(() => {
@@ -60,7 +60,7 @@ const ChatLayout = (props) => {
                     <ul>
                         <li><i className="fas fa-comment-alt"></i></li>
                         <li><i className="fas fa-cog"></i></li>
-                        <li><button type="button" onClick={() => toggleTheme()}>{theme === "dark" ? <i className="fas fa-moon"  aria-hidden="true"></i> : <i className="fas fa-sun"  aria-hidden="true"></i>}</button></li>
+                        <li><button type="button" onClick={() => toggleTheme()}>{theme === "dark" ? <i className="fas fa-sun"  aria-hidden="true"></i> : <i className="fas fa-moon"  aria-hidden="true"></i>}</button></li>
                     </ul>
                 </nav>
 			</header>
