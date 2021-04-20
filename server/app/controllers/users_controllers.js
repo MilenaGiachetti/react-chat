@@ -55,10 +55,14 @@ exports.addOne = (req,res) => {
                             sequelize.query(sql, {
                                 replacements: user
                             }).then(result => {
-                                user.id = result[0];
-                                delete user.password;
-                                res.status(200).json(user);
-                                /*return the token so it can be already logged in ?*/
+                                const jwtPass = reqs.jwtPass;
+                                let user_id = result[0];
+                                let username = req.body.username;
+                                const token = reqs.jwt.sign({
+                                    user_id,
+                                }, jwtPass);
+                                res.status(200).json({token: token, user_id: user_id, username: username});
+                                /*return the token so it can be already logged in*/
                             }).catch((err)=>{
                                 sendErrorStatus(res, 500, `Internal Server Error: ${err}`, "SERVER_ERROR");
                             })

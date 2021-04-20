@@ -85,7 +85,14 @@ export const authCheckState = () => {
         if (!token) {
             logout();
         } else {
-
+            // const expirationDate = new Date(localStorage.getItem('expirationDate'));
+            // if( expirationDate > new Date ()){
+                const userId =  localStorage.getItem('userId');
+                dispatch(authSuccess(token, userId));
+            //     dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime())/1000));
+            // } else {
+            //     logout();
+            // }
         }
         // type: actionTypes.AUTH_CHECK_STATE
     }
