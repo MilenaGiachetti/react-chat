@@ -58,8 +58,8 @@
                         border-left: 2px solid $accent_color;    
                     }
                     .chatImage {
-                        width: 40px;
-                        height: 40px;
+                        width: 4rem;
+                        height: 4rem;
                         border-radius: 50%;
                     }
                     .chatContent {
@@ -144,15 +144,46 @@
         margin-top: auto;
         ul {
             list-style: none;
-            i {
-                margin: 1rem 0;
-                padding: 1rem;
-                font-size: 2rem;
-                border-radius: 1rem;
-                color: $primary_light_color;
-                &:hover{
-                    background-color: rgba(255, 255, 255, 0.1);
+            li {
+                position: relative;
+                i {
+                    border-radius: 1rem;
+                    color: $primary_light_color;
+                    font-size: 2rem;
+                    margin: 1rem 0;
+                    padding: 1rem;
+                    &:hover{
+                        background-color: rgba(255, 255, 255, 0.1);
+                        border-radius: 1rem 0 0 1rem;
+                    }
                 }
+                i + .NavExtra {
+                    background-color: rgba(255, 255, 255, 0.1);
+                    color: transparent;
+                    font-size: 1.4rem;
+                    height: 5rem;
+                    left: 4rem;
+                    line-height: 4rem;
+                    opacity: 0;
+                    padding-left: 2rem;
+                    pointer-events: none;
+                    position: absolute;
+                    text-align: left;
+                    top: 1rem;
+                    transform-origin: 100% 0;
+                    transition: width .3s, color .5s;
+                    width: 0;
+                } 
+                i:hover + .NavExtra {
+                    background-color: rgb(70,79,176);
+                    border-radius: 0 1rem 1rem 0;
+                    color: #fff;
+                    display: block;
+                    height: 4rem;
+                    opacity: 1;
+                    pointer-events: unset;
+                    width: 12rem;
+                } 
             }
         }
     }

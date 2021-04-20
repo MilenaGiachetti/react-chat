@@ -58,9 +58,24 @@ const ChatLayout = (props) => {
 				{/* <h1 className={classes.Title}>React Chat App with Socket.io</h1> */}
                 <nav>
                     <ul>
-                        <li><i className="fas fa-comment-alt"></i></li>
-                        <li><i className="fas fa-cog"></i></li>
-                        <li><button type="button" onClick={() => toggleTheme()}>{theme === "dark" ? <i className="fas fa-sun"  aria-hidden="true"></i> : <i className="fas fa-moon"  aria-hidden="true"></i>}</button></li>
+                        <li>
+                            <i className="fas fa-comment-alt"></i>
+                            <p className={classes.NavExtra}>Chats</p>
+                        </li>
+                        <li>
+                            <i className="fas fa-cog"></i>
+                            <p className={classes.NavExtra}>Configuration</p>
+                        </li>
+                        <li>
+                            <button type="button"
+                                onClick={() => toggleTheme()}>{
+                                    theme === "dark" ? 
+                                    <i className="fas fa-sun"  aria-hidden="true"></i> : 
+                                    <i className="fas fa-moon"  aria-hidden="true"></i>
+                                }
+                                <p className={classes.NavExtra}>Change theme</p>
+                            </button>
+                        </li>
                     </ul>
                 </nav>
 			</header>
