@@ -12,11 +12,16 @@ const SignIn = (props) => {
 		props.onAuth({username: username, password: password}, false)
 	}
 
+	let formClasses = [classes.SignInCtn];
+	if(props.isLoading) {
+		formClasses = [classes.SignInCtn, classes.Loading];
+	}
+
 	return (
 		<form
 			action="."
 			onSubmit={submitHandler}
-			className={classes.SignInCtn}
+			className={formClasses.join(" ")}
 		>
 			<label>Username or email
 				<input
@@ -24,6 +29,7 @@ const SignIn = (props) => {
 					placeholder={'Enter username or email'}
 					value={username}
 					onChange={e => setUsername(e.target.value)}
+					disabled={props.isLoading}
 				/>
 			</label>
 			<label>Password
@@ -32,13 +38,21 @@ const SignIn = (props) => {
 					placeholder={'Enter password'}
 					value={password}
 					onChange={e => setPassword(e.target.value)}
+					disabled={props.isLoading}
 				/>
-				<input type="submit" value='Enter' />
+				<input type="submit" value='Enter' disabled={props.isLoading}/>
 			</label>
 			<a href="/register">Don't have an account? Sign up</a>
+			<div className={classes.Loader}></div>
 		</form>
 	)
 }
+
+const mapStateToProps = state => {
+	return {
+		isLoading: state.loading
+	};
+};
 
 const mapDispatchToProps = dispatch => {
 	return {
@@ -46,4 +60,4 @@ const mapDispatchToProps = dispatch => {
 	}
 };
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
